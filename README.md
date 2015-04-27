@@ -20,27 +20,14 @@ bill splitting with $$
   * not slow
 * Round up
 * Meteor (?) * we need to make sure JS framework has server and client stuff or we have to do everything manually
-* Polymer
  
+## TO DO
+* search up more frameworks
+* think of a better name for our project
+
 ## Task Division
 * Front-End
   * color themes
 * Back-End
   * Server-side 
   * Client-side
- 
-## Roles
-* Sean Yip - Server
-* Max Zhou - Math Calculations 
-* Fawn Wong - Front-end 
-* Lise Ho - Front-end 
-
-## Timeline
-* Get website design done   - first week of May
-* Finish basic website - second week
-* Get creation of random URLs working - second week
-* Integrate texting webpage - second week
-* Get User interface done....
-* Test on mobile (without server.algorithm integration)- 2nd/3rd week
-* INTEGRATE WITH Algorithms/server - 3rd to 4th week
-* TEST!!!! 4th week
