@@ -1,16 +1,18 @@
 <head>
 <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="bower_components/paper-button/paper-button.html">
 <title>spillblit</title>
 </head>
 
 <body>
 <h1>Welcome to Meteor!</h1>
-
+<div>
 {{> hello}}
+</div>
 </body>
 
 <template name="hello">
-	<button>Click Me</button>
+	<paper-button class="blue-button">Click Me</paper-button>
 	<p>You've pressed the button {{counter}} times.</p>
 	<paper-checkbox checked></paper-checkbox>
 </template>
