@@ -7,16 +7,9 @@
 <body>
 <h1>Welcome to Meteor!</h1>
 <div>
-{{> hello}}
+  {{yield}}
 </div>
 </body>
-
-<template name="hello">
-	<paper-button class="blue-button">Click Me</paper-button>
-	<p>You've pressed the button {{counter}} times.</p>
-	<paper-checkbox checked></paper-checkbox>
-</template>
-
 
 <!--
     Splash Page - Like our stuff, use our stuff, etc
@@ -38,5 +31,5 @@
     }
     }
     
---!>
+-->
   
