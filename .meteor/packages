@@ -8,3 +8,4 @@ meteor-platform
 autopublish
 insecure
 ecwyne:polymer-elements
+iron:router
