@@ -1,18 +1,31 @@
 <head>
   <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
   <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
   <title>spillblit</title>
 </head>
 
 <body>
-<!--nothing here-->
+  <!--nothing here-->
 </body>
+
+<template name="mainHeader">
+  <div>Hello world!</div>
+  
+</template>
 
 <!--rendered into body, stuff everything in here-->
 <template name="layout">
-  <h1>Welcome to Meteor!</h1>
-  <div>
-    {{>yield}}
+  <div class="container">
+    <core-drawer-panel flex>
+      <core-toolbar>
+      {{>yield "header"}}
+      </core-toolbar>
+      <div class="content" fit>
+      {{>yield}}
+      </div>
+    </core-drawer-panel>
   </div>
 </template>
 

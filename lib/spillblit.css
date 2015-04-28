@@ -1,5 +1,19 @@
 /* CSS declarations go here */
+html, body{
+    height: 100%;
+    width: 100%;
+}
+
 .blue-button{
     background:#3F51B5;
     color:white;
+}
+
+.container, .header{
+    height: 100%;
+    width: 100%;
+}
+
+core-header-panel{
+    height: 100%;
 }
