@@ -27,9 +27,18 @@ bill splitting with $$
 * search up more frameworks
 * think of a better name for our project
 
-## Task Division
-* Front-End
-  * color themes
-* Back-End
-  * Server-side 
-  * Client-side
+## Roles
+* Sean Yip - Server
+* Max Zhou - Math Calculations 
+* Fawn Wong - Front-end 
+* Lise Ho - Front-end 
+
+## Timeline
+* Get website design done   - 1st week of May
+* Finish basic website - 2nd week
+* Get creation of random URLs working - 2nd week
+* Integrate texting webpage - 2nd week
+* Get User interface done....
+* Test on mobile (without server.algorithm integration)- 2nd/3rd week
+* INTEGRATE WITH Algorithms/server - 3rd to 4th week
+* TESTING!!!! 4th week
