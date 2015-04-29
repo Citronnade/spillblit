@@ -9,7 +9,6 @@ Template.hello.helpers({
 
 Template.hello.events({
     'click paper-button': function () {
-	// increment the counter when button is clicked
 	Session.set('counter', Session.get('counter') + 1);
     }
 });
