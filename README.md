@@ -1,3 +1,5 @@
+#Lise Ho, Sean Yip, Max Zhou, Fawn Wong
+
 # spillblit
 bill splitting with $$
 
