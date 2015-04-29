@@ -23,10 +23,6 @@ bill splitting with $$
 * Round up
 * Meteor (?) * we need to make sure JS framework has server and client stuff or we have to do everything manually
  
-## TO DO
-* search up more frameworks
-* think of a better name for our project
-
 ## Roles
 * Sean Yip - Server
 * Max Zhou - Math Calculations 
