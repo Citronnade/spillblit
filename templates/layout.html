@@ -11,21 +11,21 @@
 </body>
 
 <template name="mainHeader">
-  <div>Hello world!</div>
+  <div><a href="/">Hello world!</a></div>
   
 </template>
 
 <!--rendered into body, stuff everything in here-->
 <template name="layout">
   <div class="container">
-    <core-drawer-panel flex>
+    <core-header-panel flex>
       <core-toolbar>
       {{>yield "header"}}
       </core-toolbar>
       <div class="content" fit>
       {{>yield}}
       </div>
-    </core-drawer-panel>
+    </core-header-panel>
   </div>
 </template>
 

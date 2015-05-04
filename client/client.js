@@ -12,3 +12,15 @@ Template.hello.events({
 	Session.set('counter', Session.get('counter') + 1);
     }
 });
+
+Template.joinForm.events({
+    'click paper-button': function(){
+	var fname = $("#first").val();
+	var lname = $("#last").val();
+	var table = $("#table").val();
+
+	var data = {'fname': fname, 'lname': lname, 'table': table};
+	console.log(data);
+    }
+    
+});
