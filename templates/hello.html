@@ -5,6 +5,9 @@
   <paper-button>
     <a href="/create" class = "blue-button">Create a Table</a>
   </paper-button>
+  <paper-button>
+    <a href="/addBills" class="blue-button">Test: Add bills</a>
+  </paper-button>
 </template>
 
 <template name="joinForm">
@@ -22,13 +25,40 @@
 </template>
 
 <template name="addBills">
-  Name here.... blah blah blah
-  1: <input type="text" placeholder="0" id="1"><br>
-  5: <input type="text" placeholder="0" id="5"><br>
-  10:<input type="text" placeholder="0" id="10"><br>
-  20:<input type="text" placeholder="0" id="20"><br>
-  50:<input type="text" placeholder="0" id="50"><br>
-  100:<input type="text" placeholder="0" id="100"><br>
+	<table>
+		<tbody>
+			<tr>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper0.01" label="0.01"><input id="0.01" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add0.01"></paper-icon-button><paper-icon-button icon="remove" id="remove0.01"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper0.05" label="0.05"><input id="0.05" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add0.05"></paper-icon-button><paper-icon-button icon="remove" id="remove0.05"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper0.10" label="0.10"><input id="0.10" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add0.10"></paper-icon-button><paper-icon-button icon="remove" id="remove0.10"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper0.25" label="0.25"><input id="0.25" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add0.25"></paper-icon-button><paper-icon-button icon="remove" id="remove0.25"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper0.50" label="0.50"><input id="0.50" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add0.50"></paper-icon-button><paper-icon-button icon="remove" id="remove0.50"></paper-icon-button></div></td>
+			</tr>
+			<tr>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper1" label="1"><input id="1" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add1"></paper-icon-button><paper-icon-button icon="remove" id="remove1"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper2" label="2"><input id="2" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add2"></paper-icon-button><paper-icon-button icon="remove" id="remove2"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper5" label="5"><input id="5" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add5"></paper-icon-button><paper-icon-button icon="remove" id="remove5"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper10" label="10"><input id="10" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add10"></paper-icon-button><paper-icon-button icon="remove" id="remove10"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper20" label="20"><input id="20" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add20"></paper-icon-button><paper-icon-button icon="remove" id="remove20"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper50" label="50"><input id="50" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add50"></paper-icon-button><paper-icon-button icon="remove" id="remove50"></paper-icon-button></div></td>
+				<td><paper-input-decorator autovalidate error="Value must be a positive integer" floatingLabel id="paper100" label="100"><input id="100" is="core-input" pattern="[0-9]+" required value="0"></paper-input-decorator></td>
+				<td><div vertical layout><paper-icon-button icon="add" id="add100"></paper-icon-button><paper-icon-button icon="remove" id="remove100"></paper-icon-button></div></td>
+			</tr>
+			<tr><td>Total: <span id="total">0.00</span></td></tr>
+		</tbody>
+	</table>
+	<paper-button id="submit" raised>Submit</paper-button><paper-button id="reset" raised>Reset</paper-button>
 </template>
 <!-- adding a comment to test rsync-->
 
