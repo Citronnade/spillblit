@@ -61,25 +61,31 @@ var payBills = function(tData){ //assigns bills to everybody
     console.log(checks)
     var denominations = totalBills;
     console.log(denominations);
-    for (denomination in denominations){ //go through cash high-low
-	console.log(denomination);
-	while(denominations[denomination] > 0){ //apply cash greedily
-	    var empty = 0;
-	    for (j=0; j < checks.length; j++){  //go through checks
-
-		console.log(checks[j]);
-		if (denominations[denomination] > 0 && denomination < checks[j]){
-		    denominations[denomination]--;
-		    checks[j]-=denomination;
-		}
-		else{
-		    empty++;
-		}
-	    }
-	    if(empty == checks.length){break;} //break from loop if higher
+    //first run-through: greedy algorithm
+    Object.keys(denominations)
+	.sort(function(a,b){return b-a;})
+	.forEach(function(denomination){
+     	    
+	    //for (denomination in denominations){ //go through cash high-low
 	    
-	}
-    }
+	    console.log(denomination);
+	    while(denominations[denomination] > 0){ //apply cash greedily
+		var empty = 0;
+		for (j=0; j < checks.length; j++){  //go through checks
+
+		    console.log(checks[j]);
+		    if (denominations[denomination] > 0 && denomination < checks[j]){
+			denominations[denomination]--;
+			checks[j]-=denomination;
+		    }
+		    else{
+			empty++;
+		    }
+		}
+		if(empty == checks.length){break;} //break from loop if higher
+		
+	    }
+	})
     
     console.log(checks);
     console.log(denominations);
