@@ -35,10 +35,11 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
 	memo["5"]+=person.cash["5"];
 	memo["2"]+=person.cash["2"];
 	memo["1"]+=person.cash["1"];
-
 	return memo;
 	
     }, {
+	"100": 0,
+	"50": 0,
 	"20": 0,
 	"10": 0,
 	"5": 0,
@@ -51,4 +52,37 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
 
 };
 
-//console.log(getBills(tableData));
+console.log(getBills(tableData));
+
+var totalBills = getBills(tableData);
+
+var payBills = function(tData){ //assigns bills to everybody
+    var checks = _.pluck(tData, 'bill');
+    console.log(checks)
+    var denominations = totalBills;
+    console.log(denominations);
+    for (denomination in denominations){ //go through cash high-low
+	console.log(denomination);
+	while(denominations[denomination] > 0){ //apply cash greedily
+	    var empty = 0;
+	    for (j=0; j < checks.length; j++){  //go through checks
+
+		console.log(checks[j]);
+		if (denominations[denomination] > 0 && denomination < checks[j]){
+		    denominations[denomination]--;
+		    checks[j]-=denomination;
+		}
+		else{
+		    empty++;
+		}
+	    }
+	    if(empty == checks.length){break;} //break from loop if higher
+	    
+	}
+    }
+    
+    console.log(checks);
+    console.log(denominations);
+};
+
+payBills(tableData);
