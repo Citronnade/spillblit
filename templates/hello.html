@@ -1,13 +1,18 @@
 <template name="hello">
-  <paper-button class="blue-button">testing</paper-button>
-  You have pushed the button {{counter}} times.
+  <a href="/join" class = "blue-button">Join a Table</a>
+  <a href="/create" class = "blue-button">Create a Table</a>
 </template>
 
 <template name="joinForm">
   <input type="text" placeholder="First" id="first"><br>
   <input type="text" placeholder="Last" id="last"><br>
   <input type="text" placeholder="Table" id="table"><br>
-  <paper-button class="blue-button">Submit</paper-button>
+  <paper-button class="blue-button">Join Table</paper-button>
 </template>
 
-<!-- adding a comment to test rsync-->
+<template name="createForm">
+  <input type="text" placeholder="First" id="first"><br>
+  <input type="text" placeholder="Last" id="last"><br>
+  <input type="text" placeholder="Table" id="table"><br>
+  <paper-button class="blue-button">Create Table</paper-button>
+</template>
