@@ -86,9 +86,21 @@ var payBills = function(tData){ //assigns bills to everybody
 		
 	    }
 	})
+    //there's some change left over
     
-    console.log(checks);
-    console.log(denominations);
+    var leftover = _.reduce(checks, function(memo, num){return memo+num}, 0);
+    console.log("leftover:", leftover);
+    
+    Object.keys(denominations)
+	.sort()
+	.forEach(function(denomination){
+	    if (denominations[denomination] >= leftover){ //bill can pay off the change
+		//how the fuck is this going to work
+	    }
+	    
+	    console.log(checks);
+	    console.log(denominations);
+	});
 };
 
 payBills(tableData);
