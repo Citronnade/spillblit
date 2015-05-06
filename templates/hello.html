@@ -1,19 +1,25 @@
 <template name="hello">
   <paper-button>
-    <a href="/join" class = "blue-button">Join a Table</a>
+    <a href="/join" class = "blue-button nolink">Join a Table</a>
   </paper-button>
   <paper-button>
-    <a href="/create" class = "blue-button">Create a Table</a>
+    <a href="/create" class = "blue-button nolink">Create a Table</a>
   </paper-button>
   <paper-button>
-    <a href="/addBills" class="blue-button">Test: Add bills</a>
+    <a href="/addBills" class="blue-button nolink">Test: Add bills</a>
   </paper-button>
 </template>
 
 <template name="joinForm">
-  <input type="text" placeholder="First" id="first"><br>
-  <input type="text" placeholder="Last" id="last"><br>
-  <input type="text" placeholder="Table" id="table"><br>
+  <paper-input-decorator>
+    <input type="text" placeholder="First" id="first">
+  </paper-input-decorator>
+  <paper-input-decorator>
+    <input type="text" placeholder="Last" id="last">
+  </paper-input-decorator>
+  <paper-input-decorator>
+    <input type="text" placeholder="Table" id="table"><br>
+  </paper-input-decorator>
   <paper-button class="blue-button">Join Table</paper-button>
 </template>
 

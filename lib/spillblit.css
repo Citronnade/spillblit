@@ -2,16 +2,41 @@
 html, body{
     height: 100%;
     width: 100%;
+    margin:none;
+    padding:none;
+}
+
+.header {
+    color:black;
+}
+
+.nolink {
+    text-decoration: none;
+}
+
+.nolink:visited {
+    text-decoration: none;
+}
+
+.nolink:hover {
+    text-decoration: none;
+}
+
+.nolink:active {
+    text-decoration: none;
 }
 
 .blue-button{
     background:#3F51B5;
     color:white;
+    border-radius:2px;
 }
 
 .container, .header{
     height: 100%;
     width: 100%;
+    margin-right:auto;
+    margin-left:auto;
 }
 
 core-header-panel{
