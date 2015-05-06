@@ -1,0 +1,94 @@
+
+/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/fibers/future.js:278
+						throw(ex);
+						      ^
+Error: EACCES, open '/home/students/2015/fawn.wong/.meteor/packages/ecwyne_polymer-elements/.build269589..1.0.9.y5adhi++os+web.browser+web.cordova/package.js'
+    at Object.Future.wait (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/fibers/future.js:398:15)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:556:31
+    at Array.forEach (native)
+    at Function._.each._.forEach (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/underscore/underscore.js:79:11)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:554:9
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:352:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:345:34
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:343:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at enterJob (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:317:26)
+    at Object.forkJoin (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:531:3)
+    at [object Object]._.extend.downloadPackagesMissingFromMap (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/tropohouse.js:562:18)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:668:25
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:352:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:345:34
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:343:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at Object.enterJob (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:317:26)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:667:20
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/catalog.js:100:5
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:264:13
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:257:29
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:255:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:246:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at Object.capture (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:245:19)
+    at Object.catalog.runAndRetryWithRefreshIfHelpful (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/catalog.js:99:31)
+    at ProjectContext._.extend._downloadMissingPackages (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:666:13)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:238:35
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:352:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:345:34
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:343:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at Object.enterJob (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:317:26)
+    at ProjectContext._.extend._completeStagesThrough (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:228:18)
+    at ProjectContext._.extend.saveChangedMetadata (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:216:10)
+    at ProjectContext._.extend.prepareProjectForBuild (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/project-context.js:221:10)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/run-app.js:520:29
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:264:13
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:257:29
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:255:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:246:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at Object.capture (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:245:19)
+    at bundleApp (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/run-app.js:519:31)
+    at [object Object]._.extend._runOnce (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/run-app.js:591:35)
+    at [object Object]._.extend._fiber (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/run-app.js:821:28)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/run-app.js:402:12
+    - - - - -
+    at Object.Future.wait (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/dev_bundle/lib/node_modules/fibers/future.js:398:15)
+    at Object.wrapper [as writeFile] (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/files.js:1350:24)
+    at [object Object]._.extend.write (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/builder.js:181:13)
+    at [object Object]._.extend.saveToPath (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/isopack.js:858:15)
+    at [object Object]._.extend._saveIsopack (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/tropohouse.js:350:15)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/tropohouse.js:484:14
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:352:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:345:34
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:343:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at Object.enterJob (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:317:26)
+    at Object.download (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/tropohouse.js:419:20)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/tropohouse.js:566:18
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:537:23
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:352:18
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:345:34
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:343:23
+    at [object Object]._.extend.withValue (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:115:14)
+    at enterJob (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:317:26)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:536:24
+    at runWithEnvironment (/home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:139:21)
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/fiber-helpers.js:146:14
+    at /home/students/2015/fawn.wong/.meteor/packages/meteor-tool/.1.1.3.4sddkj++os.linux.x86_64+web.browser+web.cordova/mt-os.linux.x86_64/tools/buildmessage.js:549:11
+    - - - - -
