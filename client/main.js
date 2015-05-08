@@ -74,7 +74,7 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
     
 
     return totalBills;
-
+    
 };
 
 console.log(getBills(tableData));
@@ -83,9 +83,22 @@ var totalBills = getBills(tableData);
 
 var payBills = function(tData){ //assigns bills to everybody
     var checks = _.pluck(tData, 'bill');
-    console.log(checks)
+    var orig_checks = checks.slice();
+    var total_cash = _.pluck(tData, 'cash');
+    console.log("total_cash", total_cash);
+    total_cash = 
+	_.reduce(total_cash, function(memo, wallet){
+	    var wallet_contents =  Object.keys(wallet).reduce(function(sum, key){
+		return parseFloat(sum) + wallet[key] * parseFloat(key);
+	    });
+	    memo.push(wallet_contents);
+	    return memo;
+	}, []);
+    
+    console.log("total_cash", total_cash);
+    console.log("checks", checks)
     var denominations = totalBills;
-    console.log(denominations);
+    console.log("denominations", denominations);
     //first run-through: greedy algorithm
     Object.keys(denominations)
 	.sort(function(a,b){return b-a;})
@@ -103,29 +116,56 @@ var payBills = function(tData){ //assigns bills to everybody
 			denominations[denomination]--;
 			checks[j]-=denomination;
 		    }
-		    else{
+		    else{ //remainder too small for current bill
 			empty++;
 		    }
 		}
-		if(empty == checks.length){break;} //break from loop if higher
+		if(_.every(checks, function(check){return denomination > check;})){break;}
+		//if(empty == checks.length){break;} //break from loop if higher
 		
 	    }
-	})
+	});
     //there's some change left over
     
     var leftover = _.reduce(checks, function(memo, num){return memo+num}, 0);
     console.log("leftover:", leftover);
+    var amt_owed = [];
+    for(i =0; i < total_cash.length; i++){
+	amt_owed.push(total_cash[i]-orig_checks[i]);
+    }
+    console.log("orig_checks", orig_checks);
+    console.log("amt_owed", amt_owed);
     
+    var amt_returned = [];
+
     Object.keys(denominations)
-	.sort()
+	.sort(function(a,b){return b-a;})
 	.forEach(function(denomination){
-	    if (denominations[denomination] >= leftover){ //bill can pay off the change
-		//how the fuck is this going to work
-	    }
+     	    
+	    //for (denomination in denominations){ //go through cash high-low
 	    
-	    console.log(checks);
-	    console.log(denominations);
+	    console.log(denomination);
+	    while(denominations[denomination] > 0){ //apply cash greedily
+		var empty = 0;
+		for (j=0; j < amt_owed.length; j++){  //go through balances
+
+		    console.log(amt_owed[j]);
+		    if (denominations[denomination] > 0 && denomination < amt_owed[j]){
+			denominations[denomination]--;
+			amt_owed[j]-=denomination;
+		    }
+		    else{ //remainder too small for current bill
+			empty++;
+		    }
+		}
+		if(_.every(amt_owed, function(balance){return denomination > balance;})){break;}
+		//if(empty == checks.length){break;} //break from loop if higher
+		
+	    }
 	});
+    console.log("denominations final", denominations);
+    console.log("amt_owed", amt_owed);
+    
 };
 
 payBills(tableData);
