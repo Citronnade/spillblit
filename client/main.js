@@ -13,6 +13,31 @@ Template.hello.events({
     }
 });
 
+Template.addBills.events({
+	"click paper-icon-button": function(element) {
+		if (element.target.id.search("add") >= 0) {
+			document.getElementById(element.target.id.slice(3)).value++;
+			addBillsTotal();
+		}
+		else if (element.target.id.search("remove") >= 0) {
+			console.log(element.target.id.slice(6));
+			var inputElement = document.getElementById(element.target.id.slice(6));
+			if (inputElement.value > 0) {
+				inputElement.value--;
+				addBillsTotal();
+			}
+		}
+	}
+});
+
+var addBillsTotal = function() {
+	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+	for (var i = 0; i < denominations.length; i++) {total += Number(document.getElementById(denominations[i]).value * Number(denominations[i]));}
+	var totalElement = document.getElementById("total");
+	while (totalElement.firstChild) {totalElement.removeChild(totalElement.firstChild);}
+	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
+};
+	
 Template.joinForm.events({
     'click paper-button': function(){
         var fname = $("#first").val();
