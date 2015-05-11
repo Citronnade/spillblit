@@ -3,6 +3,11 @@
 # spillblit
 bill splitting with $$
 
+## Current Status as of 05.11.15
+* Bill splitting algorithm finished, basic web stuff finished, some server stuff finished 
+  * Need to make stuff pretty, integrate server with web, clean up code, tax and tip
+  * Table stuff - sending links/creating custom URLs
+
 ## Features to be added
 * bill splitting -> place contents of wallet [buttons]
 * count for tax and tip 
