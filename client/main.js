@@ -20,13 +20,18 @@ Template.addBills.events({
 			addBillsTotal();
 		}
 		else if (element.target.id.search("remove") >= 0) {
-			console.log(element.target.id.slice(6));
 			var inputElement = document.getElementById(element.target.id.slice(6));
 			if (inputElement.value > 0) {
 				inputElement.value--;
 				addBillsTotal();
 			}
 		}
+	}, 
+	
+	"click #submit": function() {
+		var bills = {}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		for (var i = 0; i < denominations.length; i++) {bills[denominations[i]] = document.getElementById(denominations[i]).value;}
+		Meteor.call("addBills", bills);
 	}
 });
 
