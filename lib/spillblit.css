@@ -43,22 +43,3 @@ core-header-panel{
     height: 100%;
 }
 
-#billtable{
-    text-align:center;
-    padding-left:20%;
-    padding-right:20%;
-    position:relative;
-}
-#leftc{
-    float:left;
-}
-#rightc{
-    float:right;
-}
-.left-bill-table{
-    text-align:center;
-
-}
-.right-bill-table{
-    text-align:center;
-}
