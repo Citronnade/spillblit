@@ -95,7 +95,16 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
 var subtractNote = function(wallet, note) {
     wallet[note.toString()]--;
     return wallet;
+}
+
+var clear_wallet = function(wallet){
+    return _.reduce(wallet, function(memo, value, note){
+        memo[note] = 0;
+        return memo;
+    }, {});
+
 };
+
 console.log("tableData before getBills", tableData);
 console.log(getBills(tableData));
 console.log("tableData after getBills", tableData);
@@ -141,11 +150,15 @@ var get_change = function(excess, denominations) {
         return memo;
     }, bill_list);
     console.log("bills_returned", bills_returned);
-
     return bills_returned;
 
 }; //yay change!
+var wallet_to_cash = function(wallet_in){
+  return Object.keys(wallet_in).reduce(function(sum, key){
+      return parseFloat(sum) + wallet_in[key] * parseFloat(key);
+  });
 
+};
 var payBills = function(tData){ //assigns bills to everybody
     var tax_percent = 0.08; //this hsould be a param or something
     var tip_percent = 0.15;
@@ -161,9 +174,7 @@ var payBills = function(tData){ //assigns bills to everybody
     console.log("orig total_cash", all_wallets);
     total_cash =
         _.reduce(all_wallets, function(memo, wallet){
-            var wallet_contents =  Object.keys(wallet).reduce(function(sum, key){
-                return parseFloat(sum) + wallet[key] * parseFloat(key);
-            });
+            var wallet_contents =  wallet_to_cash(wallet);
             memo.push(wallet_contents);
             return memo;
         }, []);
@@ -268,11 +279,7 @@ var payBills = function(tData){ //assigns bills to everybody
                         console.log(amt_owed[j]);
                         if (all_wallets[j][denomination] > 0 && denomination >= leftover) {
                             //we're nuking the leftover with a single bill now
-                            //all_wallets[j][denomination]--; //unneeded
                             total_bills[denomination]--;
-                            //amt_owed[j] += denomination; //we're not doing this because of joint pool
-                            //amt_owed is the other way
-                            //choose a way to give them back!
                             leftover-=denomination;
                             console.log("all_wallets[%d]", j, all_wallets[j]);
                             done = true;
@@ -341,7 +348,7 @@ var payBills = function(tData){ //assigns bills to everybody
                         console.log("total_bills", total_bills);
                         console.log("current bill:", denomination);
                         console.log("amt_owed[%d]", j, amt_owed[j]);
-                    }
+                                            }
                     else{ //remainder too small for current bill
                         empty++;
                     }
@@ -351,9 +358,18 @@ var payBills = function(tData){ //assigns bills to everybody
             }
         });
 
+    bills_returned[0] = add_wallets(bills_returned[0], total_bills); //dump all remaining money onto first guy
+    //this is to prep for debt equalization later
+
+    amt_owed[0]-=wallet_to_cash(total_bills);
+    console.log("total_cash", total_cash);
+    //total_cash = 0;
+
     console.log("bills_returned", bills_returned);
     console.log("amt_owed", amt_owed); //this is now mostly useless besides telling them that there's
     // not enough bills to completley work it out
+    total_bills = clear_wallet(total_bills);
+    console.log("cleared total_bills", total_bills);
     _.each(bills_returned, function(wallet){
         total_bills = add_wallets(total_bills, wallet);
     });
