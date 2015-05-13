@@ -1,11 +1,22 @@
 /* CSS declarations go here */
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(http://fonts.googleapis.com/css?family=Pontano+Sans);
 html, body{
     height: 100%;
     width: 100%;
     margin: 0px;
     padding: 0px;
 }
-
+.montserrat {
+    font-family: "Montserrat", Arial, sans-serif;
+}
+.montserrat-bold {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-weight: bold;
+}
+.pontano {
+    font-family: "Pontano Sans", Arial, sans-serif;
+}
 .header {
     margin: 0px;
     padding: 0px;    
@@ -24,7 +35,7 @@ html, body{
     text-decoration: none;
 }
 
-.nolink:active {
+.nolink:active {font-family: "Montserrat", Arial, sans-serif;
     text-decoration: none;
 }
 
@@ -32,6 +43,7 @@ html, body{
     background:#3F51B5;
     color:white;
     border-radius:2px;
+    font-family: "Montserrat", Arial, sans-serif;
 }
 
 .container{
@@ -39,6 +51,11 @@ html, body{
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.content {
+    min-height : 100%;
+    height: 100%;
 }
 
 core-header-panel{
@@ -49,7 +66,7 @@ core-header-panel{
     text-align: center;
     width: 100%;
     position: absolute;
-    top: 50%;
+    top: 45%;
     margin-right: auto;
     margin-left: auto;
 }
