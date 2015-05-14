@@ -31,7 +31,7 @@
 </template>
 
 <template name="addBills">
-    <div horizontal around-justified layout style="padding:20em">
+    <div horizontal around-justified layout style="padding-left:20em;padding-right:20em">
       <table>
 	  <tbody>
 	    <tr>
@@ -85,10 +85,12 @@
 	</tbody>
       </table>
     </div>
-    <div center-justified layout>
-      Total<br>
-      <paper-button id="submit" raised>Submit</paper-button>
-      <paper-button id="reset" raised>Reset</paper-button>
+    <div vertical center-justified layout>
+      <span style="text-align:center" ><br>Total<br><br></span>
+      <div horizontal center-justified layout>
+	<paper-button id="submit" raised>Submit</paper-button>
+	<paper-button id="reset" raised>Reset</paper-button>
+      </div>
     </div>
   
 </template>
