@@ -1,13 +1,19 @@
 <template name="hello">
-  <paper-button>
-    <a href="/join" class="blue-button nolink">Join a Table</a>
-  </paper-button>
-  <paper-button>
-    <a href="/create" class="blue-button nolink">Create a Table</a>
-  </paper-button>
-  <paper-button>
-    <a href="/addBills" class="blue-button nolink">Test: Add bills</a>
-  </paper-button>
+  <div class = "cover-cont">
+    <span class = "cover pontano">
+      <paper-button>
+	<a href="/join" class = "blue-button nolink">Join a Table</a>
+      </paper-button>
+      <paper-button>
+	<a href="/create" class = "blue-button nolink">Create a Table</a>
+      </paper-button>
+      <paper-button>
+	<a href="/addBills" class="blue-button nolink">Test: Add bills</a>
+      </paper-button>
+    </span>
+    <!--img src="https://download.unsplash.com/photo-1418479631014-8cbf89db3431"-->
+    <img src="/cover.jpg">
+  </div>
 </template>
 
 <template name="joinForm">
@@ -24,9 +30,9 @@
 </template>
 
 <template name="createForm">
-  <input type="text" placeholder="First" id="first"><br>
-  <input type="text" placeholder="Last" id="last"><br>
-  <input type="text" placeholder="Table" id="table"><br>
+  <paper-input-decorator floatingLabel id="paperFirst" label="First Name"><input id="first" required></paper-input-decorator>
+  <paper-input-decorator floatingLabel id="paperLast" label="Last Name"><input id="last" required></paper-input-decorator>
+  <paper-input-decorator floatingLabel id="paperTable" label="Table Name"><input id="table" required></paper-input-decorator>
   <paper-button class="blue-button">Create Table</paper-button>
 </template>
 
