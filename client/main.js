@@ -29,8 +29,8 @@ Template.addBills.events({
 	}, 
 	
 	"click #submit": function() {
-		var bills = {}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-		for (var i = 0; i < denominations.length; i++) {bills[denominations[i]] = document.getElementById(denominations[i]).value;}
+		var bills = {_id: _id, name: "Unnamed person", bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i]] = document.getElementById(denominations[i]).value;}
 		Meteor.call("addBills", bills);
 	}
 });
@@ -42,7 +42,18 @@ var addBillsTotal = function() {
 	while (totalElement.firstChild) {totalElement.removeChild(totalElement.firstChild);}
 	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
 };
-	
+
+var _id; //Used to uniquely identify the Mongo document
+Template.createForm.events({
+	"click paper-button": function() {
+		Meteor.call("addTable", {first: $("#first").value, last: $("#last").value, table: $("table").value}, function(error, result) {
+			if (error) {console.log("Error: " + error);}
+			else {_id = result;}
+			console.log(_id);
+		});
+	}
+});
+
 Template.joinForm.events({
     'click paper-button': function(){
         var fname = $("#first").val();
@@ -50,8 +61,7 @@ Template.joinForm.events({
         var table = $("#table").val();
 
         var data = {'fname': fname, 'lname': lname, 'table': table};
-        console.log(data);
-        Meteor.call("addTable", data);
+		console.log(data);
     }
 
 });
