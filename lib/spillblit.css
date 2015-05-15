@@ -79,7 +79,9 @@ core-header-panel{
     -o-background-size: cover;
     background-size: cover;
     z-index: -20;
+    height: 100vh;
 }
+
 .cover {
     text-align: center;
     width: 100%;
@@ -87,5 +89,13 @@ core-header-panel{
     top: 45%;
     margin-right: auto;
     margin-left: auto;
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+    .cover  {
+	
+    }
 }
 
