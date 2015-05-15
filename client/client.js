@@ -1,11 +1,13 @@
-var _id; //id used to identify the mongo document corresponding to the table
+var _id, name; //id used to identify the mongo document corresponding to the table
 Template.create.events({
 	"click #create": function() {
-		Meteor.call("create", {name: $("#name").value, table: $("#table").value}, function(error, result) {
+		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
 			if (error) {console.log("Error: " + error);}
 			else {
-				console.log("_id: " + _id);
 				_id = result;
+				name = $("#name").val();
+				console.log("_id: " + _id);
+				Router.go("/enterBills");
 			}
 		});
 	}
@@ -27,8 +29,8 @@ Template.enterBills.events({
 	}, 
 	
 	"click #submit": function() {
-		var bills = {_id: _id, name: "Unnamed person", bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i]] = document.getElementById(denominations[i]).value;}
+		var bills = {_id: _id, name: name, bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i].replace(".", "\u002e")] = document.getElementById(denominations[i]).value;}
 		Meteor.call("enterBills", bills);
 	}
 });
@@ -36,7 +38,7 @@ Template.enterBills.events({
 
 var enterBillsTotal = function() {
 	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-	for (var i = 0; i < denominations.length; i++) {total += Number(document.getElementById(denominations[i]).value * Number(denominations[i]));}
+	for (var i = 0; i < denominations.length; i++) {total += Number(document.getElementById(denominations[i]).value) * Number(denominations[i]);}
 	var totalElement = document.getElementById("total");
 	while (totalElement.firstChild) {totalElement.removeChild(totalElement.firstChild);}
 	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
