@@ -393,7 +393,7 @@ var payBills = function(tData){ //assigns bills to everybody
 
     var borrowers;
     var lenders;
-    _.each(bills_returned, function(wallet, index))
+    //_.each(bills_returned, function(wallet, index))
 
 };
 
