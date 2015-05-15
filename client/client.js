@@ -1,29 +1,27 @@
-// counter starts at 0
-Session.setDefault('counter', 0);
-
-Template.hello.helpers({
-    counter: function () {
-        return Session.get('counter');
-    }
+var _id; //id used to identify the mongo document corresponding to the table
+Template.create.events({
+	"click #create": function() {
+		Meteor.call("create", {name: $("#name").value, table: $("#table").value}, function(error, result) {
+			if (error) {console.log("Error: " + error);}
+			else {
+				console.log("_id: " + _id);
+				_id = result;
+			}
+		});
+	}
 });
 
-Template.hello.events({
-    'click paper-button': function () {
-        Session.set('counter', Session.get('counter') + 1);
-    }
-});
-
-Template.addBills.events({
+Template.enterBills.events({
 	"click paper-icon-button": function(element) {
 		if (element.target.id.search("add") >= 0) {
 			document.getElementById(element.target.id.slice(3)).value++;
-			addBillsTotal();
+			enterBillsTotal();
 		}
 		else if (element.target.id.search("remove") >= 0) {
 			var inputElement = document.getElementById(element.target.id.slice(6));
 			if (inputElement.value > 0) {
 				inputElement.value--;
-				addBillsTotal();
+				enterBillsTotal();
 			}
 		}
 	}, 
@@ -31,12 +29,12 @@ Template.addBills.events({
 	"click #submit": function() {
 		var bills = {_id: _id, name: "Unnamed person", bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i]] = document.getElementById(denominations[i]).value;}
-		Meteor.call("addBills", bills);
+		Meteor.call("enterBills", bills);
 	}
 });
 
 
-var addBillsTotal = function() {
+var enterBillsTotal = function() {
 	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 	for (var i = 0; i < denominations.length; i++) {total += Number(document.getElementById(denominations[i]).value * Number(denominations[i]));}
 	var totalElement = document.getElementById("total");
@@ -44,27 +42,10 @@ var addBillsTotal = function() {
 	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
 };
 
-var _id; //Used to uniquely identify the Mongo document
-Template.createForm.events({
-	"click paper-button": function() {
-		Meteor.call("addTable", {first: $("#first").value, last: $("#last").value, table: $("table").value}, function(error, result) {
-			if (error) {console.log("Error: " + error);}
-			else {_id = result;}
-			console.log(_id);
-		});
+Template.join.events({
+	"click #join": function() {
+		Meteor.call("join", {name: $("#name").value(), table: $("#table").value()});
 	}
-});
-
-Template.joinForm.events({
-    'click paper-button': function(){
-        var fname = $("#first").val();
-        var lname = $("#last").val();
-        var table = $("#table").val();
-
-        var data = {'fname': fname, 'lname': lname, 'table': table};
-        console.log(data);
-    }
-
 });
 
 var getBills = function(tData){ //a function that calls a function. oh boy.

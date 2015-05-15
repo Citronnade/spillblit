@@ -12,6 +12,6 @@ Meteor.methods({
 		Tables.update(_id, {$set: bills});
 	},
 	
-	addTable: function(table) {return Tables.insert({name: table.first + " " + table.last, table: table.table});}
+	create: function(table) {return Tables.insert({table: table.table, name: table.name});}
 });
 
