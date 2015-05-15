@@ -1,33 +1,24 @@
 <head>
-  <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
-  <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link href="bower_components/paper-icon-button/paper-icon-button.html" rel="import">
-  <link href="bower_components/paper-input/paper-input.html" rel="import">
-  <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
-  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
- 
-  <title>spillblit</title>
+<link href="bower_components/core-header-panel/core-header-panel.html" rel="import">
+<link href="bower_components/core-toolbar/core-toolbar.html" rel="import">
+<link href="bower_components/paper-button/paper-button.html" rel="import">
+<link href="bower_components/paper-checkbox/paper-checkbox.html" rel="import">
+<link href="bower_components/paper-icon-button/paper-icon-button.html" rel="import">
+<link href="bower_components/paper-input/paper-input.html" rel="import">
+<meta charset="UTF-8">
+<title>Spillblit</title>
 </head>
 
 <body>
-  <!--nothing here-->
 </body>
 
-<template name="mainHeader">
-  <div><a class = "nolink header montserrat" href="/"><h2>SPILLBLIT</h2></a></div>
-  
-</template>
-
-<!--rendered into body, stuff everything in here-->
 <template name="layout">
-  <div class="container">
-    <core-header-panel fit>
-      <core-toolbar>
-      {{>yield "header"}}
-      </core-toolbar>
-      <div class="content" fit>
-      {{>yield}}
-      </div>
-    </core-header-panel>
-  </div>
+<div class="container">
+<core-header-panel fit>
+	<core-toolbar><div><a class = "nolink header montserrat" href="/"><h2>SPILLBLIT</h2></a></div></core-toolbar>
+	<div class="content" fit>
+	{{>yield}}
+	</div>
+</core-header-panel>
+</div>
 </template>
