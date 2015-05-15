@@ -381,6 +381,11 @@ var payBills = function(tData){ //assigns bills to everybody
 
     console.log("total_bills after tip:", total_bills);
     console.log("tip_owed final:", tip_owed);
+
+    var borrowers;
+    var lenders;
+    _.each(bills_returned, function(wallet, index))
+
 };
 
 
