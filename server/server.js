@@ -15,6 +15,7 @@ Meteor.methods({
 		var _id = bills._id;
 		bills[bills.name] = bills.bills;
 		delete bills._id;
+		delete bills.bills;
 		delete bills.name;
 		console.log(bills);
 		Tables.update(_id, {$set: bills});
