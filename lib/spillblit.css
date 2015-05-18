@@ -47,6 +47,7 @@ html, body{
 }
 
 .container{
+    padding: 10px;
     height: 100%;
     width: 100%;
     margin-right: auto;
@@ -67,10 +68,12 @@ core-header-panel{
     max-height : 100%;
     width: 100%;
     overflow : hidden;
+    display:relative;
 }
 
 .cover-cont > img {
     top: -100px;
+    width: 100%;
     min-width : 100%;
     max-width: 100%;
     background: url(/cover.jpg) no-repeat center center fixed; 
@@ -79,13 +82,38 @@ core-header-panel{
     -o-background-size: cover;
     background-size: cover;
     z-index: -20;
+    height: 100vh;
 }
+
 .cover {
+    /*
     text-align: center;
-    width: 100%;
     position: absolute;
-    top: 45%;
-    margin-right: auto;
-    margin-left: auto;
+    width: 100%;
+    margin-right: 50%;
+    margin-left: 50%;
+   
+    position:absolute;
+    vertical-align:middle;
+    display:table-cell;
+   */
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform:translate(-50%, -50%);
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+    .cover  {
+	position:absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform:translate(-50%, -50%);
+
+    }
 }
 
