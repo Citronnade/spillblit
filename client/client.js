@@ -32,6 +32,13 @@ Template.enterBills.events({
 		var bills = {_id: _id, name: name, bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i].replace(".", ",")] = document.getElementById(denominations[i]).value;}
 		Meteor.call("enterBills", bills);
+	},
+        "click #reset": function(){
+	        var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+       	        for (var i = 0; i < denominations.length; i++){
+		    document.getElementById(denominations[i]).value = "0";
+		}
+	    enterBillsTotal();  //Reset total 
 	}
 });
 
