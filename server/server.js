@@ -4,14 +4,22 @@ Meteor.startup(function() {
 });
 
 Meteor.methods({
-	addBills: function(bills) {
-		var _id = new Mongo.ObjectID(bills._id);
-		bills[bills.name] = bills.bills;
-		delete bills._id;
-		delete bills.name;
-		Tables.update(_id, {$set: bills});
+	create: function(table) {
+		var _id = Tables.insert({table: table.table, name: table.name});
+		console.log(_id);
+		console.log(Tables.findOne(_id));
+		return _id;
 	},
 	
-	addTable: function(table) {return Tables.insert({name: table.first + " " + table.last, table: table.table});}
+	enterBills: function(bills) {
+		var _id = bills._id;
+		bills[bills.name] = bills.bills;
+		delete bills._id;
+		delete bills.bills;
+		delete bills.name;
+		console.log(bills);
+		Tables.update(_id, {$set: bills});
+		console.log(Tables.findOne(_id));
+	}
 });
 
