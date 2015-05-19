@@ -117,3 +117,17 @@ only screen and (min-device-pixel-ratio : 1.5) {
     }
 }
 
+
+
+#data-table{
+    border:1px solid black;
+    border-collapse:collapse;
+    background-color:cyan;
+}
+.data-table-header{
+    font-weight:bold;
+}
+#data-table td{
+    border:1px solid black;
+    font-size:1.2em;
+}
