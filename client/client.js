@@ -132,16 +132,10 @@ var get_change = function(excess, denominations) {
             key = key.toFixed(2);
         }
         while (key <= excess){ //can pay back change
-            console.log("key in if:", key);
-            console.log("excess in if:", excess);
-
             memo[key]++;
             excess-=key;
             excess = excess.toFixed(2);
         }
-        console.log("excess", excess);
-        console.log("key", key);
-        console.log("memo", memo);
         return memo;
     }, bill_list);
     console.log("bills_returned", bills_returned);
@@ -149,9 +143,14 @@ var get_change = function(excess, denominations) {
 
 }; //yay change!
 var wallet_to_cash = function(wallet_in){
-  return Object.keys(wallet_in).reduce(function(sum, key){
+    //Object.keys(wallet_in).reduce(function(sum, key){
+    console.log("wallet_in:", wallet_in);
+    return _.reduce(Object.keys(wallet_in), function(sum, key){
+      console.log("sum", sum);
+      console.log("key", key);
+      console.log("wallet_in[%s]", key, wallet_in[key]);
       return parseFloat(sum) + wallet_in[key] * parseFloat(key);
-  });
+  }, 0);
 
 };
 var payBills = function(tData){ //assigns bills to everybody
@@ -181,14 +180,15 @@ var payBills = function(tData){ //assigns bills to everybody
 
     var all_checks_taxed;
     all_checks_taxed = _.reduce(all_checks, function(memo, balance){
-        memo.push(balance * (1 + tax_percent));
+        memo.push(parseFloat((balance * (1 + tax_percent)).toFixed(2)));
+        console.log("memo", memo);
         return memo;
     },[]);
     console.log("all_checks_taxed", all_checks_taxed);
 
     var all_checks_taxed_tipped; //we pay based off this
     all_checks_taxed_tipped = _.reduce(all_checks, function(memo, balance){
-        memo.push(balance * (1 + tip_percent + tax_percent));
+        memo.push(parseFloat((balance * (1 + tip_percent + tax_percent)).toFixed(2)));
         return memo;
     }, []);
     console.log("all_checks_taxed_tipped:", all_checks_taxed_tipped);
@@ -212,6 +212,8 @@ var payBills = function(tData){ //assigns bills to everybody
                         total_bills[denomination]--;
                         all_checks_taxed[j]-=denomination;
                         total_cash[j]-=denomination;
+                        total_cash[j] = parseFloat((total_cash[j]).toFixed(2));
+                        all_checks_taxed[j] = parseFloat((all_checks_taxed[j]).toFixed(2));
                         //subtractNote(all_wallets[j], denomination);
                         console.log("total_bills", total_bills);
                         console.log("current bill:", denomination);
@@ -231,6 +233,8 @@ var payBills = function(tData){ //assigns bills to everybody
     console.log("all_wallets final:", all_wallets);
     console.log("total_cash final", total_cash);
     console.log("orig_total_cash", orig_total_cash);
+    console.log("all_checks_taxed", all_checks_taxed);
+    console.log("sum of total_bills:", wallet_to_cash(total_bills));
     var leftover = _.reduce(all_checks_taxed, function(memo, num){return memo+num}, 0); //direct  the bill
 
     console.log("leftover:", leftover);
@@ -238,12 +242,12 @@ var payBills = function(tData){ //assigns bills to everybody
     for(i =0; i < total_cash.length; i++){
         //amt_owed.push((orig_total_cash[i]-total_cash[i])-orig_all_checks[i]);
         //use the first one and just stop negative bills
-        amt_owed.push(orig_total_cash[i]-orig_all_checks_taxed[i]);
+        amt_owed.push(parseFloat((orig_total_cash[i]-orig_all_checks_taxed[i]).toFixed(2)));
     }
 
     var tip_owed = [];
     for(i=0; i < total_cash.length; i++){
-        tip_owed.push(orig_all_checks_taxed_tipped[i]-orig_all_checks_taxed[i]);
+        tip_owed.push(parseFloat((orig_all_checks_taxed_tipped[i]-orig_all_checks_taxed[i]).toFixed(2)));
     }
     var total_tip_owed = _.reduce(tip_owed, function(memo, tip){
         memo+=tip;
@@ -263,20 +267,24 @@ var payBills = function(tData){ //assigns bills to everybody
     Object.keys(total_bills)
         .sort(function(a,b){return parseFloat(a)-parseFloat(b);}) //we got low->high here since we only want to use ONE bill
         .forEach(function(denomination) {
+            var oldd = denomination;
             denomination = parseFloat(denomination);
+
             console.log(denomination);
 
             if (!done) { //you can't break out of a forEach
 
-                while (total_bills[denomination] > 0) { //apply cash greedily
+                while (total_bills[oldd] > 0) { //apply cash greedily
                     var empty=0;
+                    console.log("leftover", leftover);
+                    console.log("total_bills[%s]", oldd, total_bills[oldd]);
+
                     for (j = 0; j < amt_owed.length; j++) {  //go through balance
-                        console.log(amt_owed[j]);
-                        if (all_wallets[j][denomination] > 0 && denomination >= leftover) {
+                        if (all_wallets[j][oldd] > 0 && denomination >= leftover) {
                             //we're nuking the leftover with a single bill now
-                            total_bills[denomination]--;
+                            console.log("denomination used to nuke:", denomination);
+                            total_bills[oldd]--;
                             leftover-=denomination;
-                            console.log("all_wallets[%d]", j, all_wallets[j]);
                             done = true;
                             break; //this will be guaranteed to nuke the whole thing
                         }
@@ -323,27 +331,32 @@ var payBills = function(tData){ //assigns bills to everybody
         return memo;
     },{});
 */
+
+    console.log("total_bills before returning change:", total_bills);
     Object.keys(total_bills)//return change to everybody.  HOPEFULLY THIS WORKS
         .sort(function(a,b){return parseFloat(b)-parseFloat(a);})
         .forEach(function(denomination){
 
             //for (denomination in total_bills){ //go through cash high-low
 
-            console.log(denomination);
+            console.log("demonination", denomination);
             while(total_bills[denomination] > 0){ //apply cash greedily
                 var empty = 0;
                 for (j=0; j < amt_owed.length; j++){  //go through what everyone's owed
 
-                    console.log(amt_owed[j]);
-                    if (total_bills[denomination] > 0 && denomination < amt_owed[j]){
+                    console.log("amt_owed[%d] 1 ", j, amt_owed[j]);
+                    if (total_bills[denomination] > 0 && denomination <= amt_owed[j]){
                         total_bills[denomination]--;
                         amt_owed[j]-=denomination;
                         total_cash[j]-=denomination;
                         bills_returned[j][denomination]++;
+                        total_cash[j] = parseFloat((total_cash[j]).toFixed(2));
+                        amt_owed[j] = parseFloat((amt_owed[j]).toFixed(2));
                         console.log("total_bills", total_bills);
                         console.log("current bill:", denomination);
-                        console.log("amt_owed[%d]", j, amt_owed[j]);
-                                            }
+                        console.log("amt_owed[%d] 2 ", j, amt_owed[j]);
+                        console.log("bills_returned", bills_returned)
+                    }
                     else{ //remainder too small for current bill
                         empty++;
                     }
@@ -352,16 +365,20 @@ var payBills = function(tData){ //assigns bills to everybody
 
             }
         });
-
-    bills_returned[0] = add_wallets(bills_returned[0], total_bills); //dump all remaining money onto first guy
+    var i = amt_owed.indexOf(Math.max.apply(Math, amt_owed)); //this finds the guy who owes the most money
+    console.log("bills_returned[%d] before:", i, bills_returned[i]);
+    bills_returned[i] = add_wallets(bills_returned[i], total_bills); //dump all remaining money onto that guy
+    console.log("bills_returned[%d] after:", i, bills_returned[i]);
     //this is to prep for debt equalization later
 
-    amt_owed[0]-=wallet_to_cash(total_bills);
+    console.log("total_bills", total_bills);
+    amt_owed[i]-=wallet_to_cash(total_bills);
     console.log("total_cash", total_cash);
     //total_cash = 0;
 
     console.log("bills_returned", bills_returned);
-    console.log("amt_owed", amt_owed); //this is now mostly useless besides telling them that there's
+    console.log("amt_owed", amt_owed); //this is now mostly useless besid
+    // es telling them that there's
     // not enough bills to completley work it out
     total_bills = clear_wallet(total_bills);
     console.log("cleared total_bills", total_bills);
@@ -377,9 +394,54 @@ var payBills = function(tData){ //assigns bills to everybody
     console.log("total_bills after tip:", total_bills);
     console.log("tip_owed final:", tip_owed);
 
-    var borrowers;
-    var lenders;
-    //_.each(bills_returned, function(wallet, index))
+    var borrowers = [];
+    var lenders = [];
+    _.each(bills_returned, function(wallet, index){
+        console.log("wallet", wallet);
+        console.log("index", index);
+        if (amt_owed[index] >= 0){ //owed money
+            lenders.push({"wallet": wallet, "oindex":index, "sum": wallet_to_cash(wallet)});
+        }
+        else{
+            borrowers.push({"wallet": wallet, "oindex":index, "sum": wallet_to_cash(wallet)});
+        }
+    });
+    console.log("borrowers", borrowers);
+    console.log("lenders", lenders);
+    borrowers = borrowers.sort(function(a, b){return amt_owed[b["oindex"]]- amt_owed[a["oindex"]]});
+    lenders = lenders.sort(function(a,b){return amt_owed[a["oindex"]]- amt_owed[b["oindex"]]});
+    console.log("borrowers", borrowers);
+    console.log("lenders", lenders);
+
+
+    _.each(borrowers, function(person){
+        var wallet = person["wallet"];
+        _.each(_.keys(wallet).sort(function(a, b){return b-a;}), function(denomination){
+            console.log("denomination", denomination);
+
+            while(wallet[denomination] > 0) { //while we have bills
+                if (parseFloat(denomination) < amt_owed[lenders[0]["oindex"]]) {
+                    console.log("amt_owed[lenders[0]['oindex']]", amt_owed[lenders[0]["oindex"]]);
+                    console.log("amt_owed[person['oindex']]", amt_owed[person['oindex']]);
+                    console.log("parsed denomination", parseFloat(denomination));
+                    amt_owed[lenders[0]["oindex"]] -=parseFloat(denomination);
+                    amt_owed[person["oindex"]] +=parseFloat(denomination);
+                    amt_owed[lenders[0]["oindex"]] = parseFloat((amt_owed[lenders[0]["oindex"]]).toFixed(2));
+                    amt_owed[person["oindex"]] = parseFloat((amt_owed[person["oindex"]]).toFixed(2));
+
+                    wallet[denomination]--;
+                    lenders[0].wallet[denomination]++;
+                    lenders = lenders.sort(function(a,b){return amt_owed[a["oindex"]]- amt_owed[b["oindex"]]});
+                    console.log("subtracted:", denomination);
+                }
+                else{
+                    break;
+                }
+                lenders = lenders.sort(function(a,b){return amt_owed[a["oindex"]]- amt_owed[b["oindex"]]});
+            }
+        })
+    });
+    console.log("amt_owed", amt_owed);
 
 };
 

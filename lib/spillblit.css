@@ -59,7 +59,7 @@ html, body{
     height: 100%;
 }
 
-core-header-panel{
+core-header-panels{
     height: 100%;
 }
 
@@ -117,3 +117,28 @@ only screen and (min-device-pixel-ratio : 1.5) {
     }
 }
 
+
+
+#data-table{
+    border:1px solid black;
+    border-collapse:collapse;
+    background-color:cyan;
+    text-align:center;
+}
+.data-table-header{
+    font-weight:bold;
+}
+#data-table td{
+    border:1px solid black;
+    font-size:1.2em;
+}
+.data-container{
+    height: 100%;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+.data-content{
+    height: 100%;
+}
