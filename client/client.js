@@ -1,12 +1,11 @@
-var _id, name; //id used to identify the mongo document corresponding to the table
 Template.create.events({
 	"click #create": function() {
 		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
 			if (error) {console.log("Error: " + error);}
 			else {
-				_id = result;
-				name = $("#name").val();
-				console.log("_id: " + _id);
+				Session.set("_id", result);
+				Session.set("name", $("#name").val());
+				console.log("_id: " + Session.get("_id"));
 				Router.go("/enterBills");
 			}
 		});
@@ -27,18 +26,15 @@ Template.enterBills.events({
 			}
 		}
 	}, 
-	
 	"click #submit": function() {
-		var bills = {_id: _id, name: name, bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		var bills = {_id: Session.get("_id"), name: Session.get("name"), bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i].replace(".", ",")] = document.getElementById(denominations[i]).value;}
 		Meteor.call("enterBills", bills);
 	},
-        "click #reset": function(){
-	        var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-       	        for (var i = 0; i < denominations.length; i++){
-		    document.getElementById(denominations[i]).value = "0";
-		}
-	    enterBillsTotal();  //Reset total 
+	"click #reset": function() {
+		var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		for (var i = 0; i < denominations.length; i++) {document.getElementById(denominations[i]).value = "0";}
+    	enterBillsTotal();  //Reset total 
 	}
 });
 
@@ -53,7 +49,7 @@ var enterBillsTotal = function() {
 
 Template.join.events({
 	"click #join": function() {
-		Meteor.call("join", {name: $("#name").value(), table: $("#table").value()});
+		Router.go("/table/" + $("#id").val());
 	}
 });
 
