@@ -91,13 +91,6 @@
 </template>
 
 <template name="table">
-{{this.table}}<br>
-{{this.name}}<br>
-{{#with this.Remilia}}
-	{{this}}
-	<!--{{#each this}}
-		{{this}}
-	{{/each}}-->
-{{/with}}
+{{#each this}}{{this}}<br>{{/each}}
 </template>
 
