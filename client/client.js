@@ -6,7 +6,7 @@ Template.create.events({
 				Session.set("_id", result);
 				Session.set("name", $("#name").val());
 				console.log("_id: " + Session.get("_id"));
-				Router.go("/enterBills");
+				Router.go("/table/" + Session.get("_id") + "/enterBills");
 			}
 		});
 	}
@@ -38,7 +38,6 @@ Template.enterBills.events({
 	}
 });
 
-
 var enterBillsTotal = function() {
 	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 	for (var i = 0; i < denominations.length; i++) {total += Number(document.getElementById(denominations[i]).value) * Number(denominations[i]);}
@@ -48,10 +47,21 @@ var enterBillsTotal = function() {
 };
 
 Template.join.events({
-	"click #join": function() {
-		Router.go("/table/" + $("#id").val());
-	}
+	"click #join": function() {Router.go("/table/" + $("#id").val());}
 });
+
+Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
+Template.registerHelper("session", function(name) {return Session.get(name);});
+
+Template.table.events({
+	"click #enterBills": function() {Router.go("./enterBills");}
+});
+
+Template.table.helpers({
+	getTable: function(_id) {return objectToArray(Tables.findOne(_id));}
+});
+
+function objectToArray(object) {return _.map(object, function(value, key, list) {return " " + key.replace(",", ".") + ": " + ((typeof value == "object") ? objectToArray(value) : value);});}
 
 var getBills = function(tData){ //a function that calls a function. oh boy.
     console.log("tData inside getBills", tData);

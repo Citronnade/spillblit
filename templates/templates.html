@@ -5,6 +5,7 @@
 </template>
 
 <template name="enterBills">
+<paper-input-decorator floatingLabel label="Name"><input id="name" disabled={{hasSession "name"}} required value="{{session "name"}}"></paper-input-decorator>
 <div horizontal around-justified layout style="padding-left: 20em; padding-right: 20em">
 	<table>
 		<tbody>
@@ -67,8 +68,8 @@
 	<br>
 	<span style="text-align:center">Total: <span id="total">0.00</span></span><br>
 	<div horizontal center-justified layout>
-		<paper-button id="submit" raised>Submit</paper-button>
-		<paper-button id="reset" raised>Reset</paper-button>
+		<paper-button class="blue-button" id="submit">Submit</paper-button>
+		<paper-button id="reset">Reset</paper-button>
 	</div>
 </div>  
 </template>
@@ -90,7 +91,8 @@
 </template>
 
 <template name="table">
-{{#each this}}{{this}}<br>{{/each}}
+{{#each getTable this}}{{this}}<br>{{/each}}
+<paper-button class="blue-button" id="enterBills">Enter Bills</paper-button>
 </template>
 
 <template name="results">
