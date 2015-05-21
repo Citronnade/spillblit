@@ -13,7 +13,7 @@ Template.create.events({
 });
 
 Template.join.events({"click #join": function() {
-	Session.set("_id", $("#id").val());
+	//Session.set("_id", $("#id").val());
 	Router.go("/table/" + Session.get("_id"));
 }});
 
