@@ -69,7 +69,7 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
         memo["0.25"]+=person.cash["0.25"];
         memo["0.10"]+=person.cash["0.10"];
         memo["0.05"]+=person.cash["0.05"];
-        memo["0.01"]+=person.cash["0.01"]
+        memo["0.01"]+=person.cash["0.01"];
         return memo;
 
     }, {
@@ -91,10 +91,7 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
 
 };
 
-var subtractNote = function(wallet, note) {
-    wallet[note.toString()]--;
-    return wallet;
-}
+
 
 var clear_wallet = function(wallet){
     return _.reduce(wallet, function(memo, value, note){
@@ -115,6 +112,14 @@ var add_wallets = function(wallet1, wallet2) { //this adds together 2 "wallets" 
     }, {});
     return new_wallet;
 
+};
+
+var diff_wallets = function(wallet1, wallet2){
+    var new_wallet = _.reduce(wallet1, function(memo, value, denomination){
+        memo[denomination] = wallet1[denomination] - wallet2[denomination];
+        return memo;
+    }, {});
+    return new_wallet
 };
 
 var get_change = function(excess, denominations) {
@@ -167,6 +172,7 @@ var payBills = function(tData){ //assigns bills to everybody
     var orig_all_checks = all_checks.slice();
     var all_wallets = _.pluck(tData, 'cash');
     var total_cash;
+    var orig_all_wallets = JSON.parse(JSON.stringify(all_wallets));
 
 
     console.log("orig total_cash", all_wallets);
@@ -209,7 +215,7 @@ var payBills = function(tData){ //assigns bills to everybody
             console.log(denomination);
             while(total_bills[denomination] > 0){ //apply cash greedily
                 var empty = 0;
-                for (j=0; j < all_checks_taxed.length; j++){  //go through all_checks_taxed_
+                for (var j=0; j < all_checks_taxed.length; j++){  //go through all_checks_taxed_
 
                     console.log(all_checks_taxed[j]);
                     if (total_bills[denomination] > 0 && denomination < all_checks_taxed[j]){
@@ -283,7 +289,7 @@ var payBills = function(tData){ //assigns bills to everybody
                     console.log("leftover", leftover);
                     console.log("total_bills[%s]", oldd, total_bills[oldd]);
 
-                    for (j = 0; j < amt_owed.length; j++) {  //go through balance
+                    for (var j = 0; j < amt_owed.length; j++) {  //go through balance
                         if (all_wallets[j][oldd] > 0 && denomination >= leftover) {
                             //we're nuking the leftover with a single bill now
                             console.log("denomination used to nuke:", denomination);
@@ -334,7 +340,18 @@ var payBills = function(tData){ //assigns bills to everybody
         memo[key] = 0;
         return memo;
     },{});
+
 */
+/*
+    console.log("old amt_owed:", amt_owed);
+    //factor in tip now...
+
+    for (var j=0; j < tip_owed.length; j++){
+        amt_owed[j] -= tip_owed[j]; //since amt_owed is amount RETURNED, and tip is owed TO the place
+    }
+
+    console.log("new amt_owed:", amt_owed);
+    */
 
     console.log("total_bills before returning change:", total_bills);
     Object.keys(total_bills)//return change to everybody.  HOPEFULLY THIS WORKS
@@ -346,7 +363,7 @@ var payBills = function(tData){ //assigns bills to everybody
             console.log("demonination", denomination);
             while(total_bills[denomination] > 0){ //apply cash greedily
                 var empty = 0;
-                for (j=0; j < amt_owed.length; j++){  //go through what everyone's owed
+                for (var j=0; j < amt_owed.length; j++){  //go through what everyone's owed
 
                     console.log("amt_owed[%d] 1 ", j, amt_owed[j]);
                     if (total_bills[denomination] > 0 && denomination <= amt_owed[j]){
@@ -446,7 +463,14 @@ var payBills = function(tData){ //assigns bills to everybody
         })
     });
     console.log("amt_owed", amt_owed);
+    console.log("total_bills left on table:", total_bills);
 
+    var net_wallets = [];
+    for (var j=0; j < amt_owed.length; j++){
+        net_wallets.push(diff_wallets(bills_returned[j], orig_all_wallets[j]));
+    }
+    console.log(net_wallets);
+    return net_wallets;
 };
 
 
