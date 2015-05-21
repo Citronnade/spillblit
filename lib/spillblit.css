@@ -57,6 +57,9 @@ html, body{
 .content {
     min-height : 100%;
     height: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 core-header-panels{
@@ -86,17 +89,6 @@ core-header-panels{
 }
 
 .cover {
-    /*
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    margin-right: 50%;
-    margin-left: 50%;
-   
-    position:absolute;
-    vertical-align:middle;
-    display:table-cell;
-   */
     position:absolute;
     top: 50%;
     left: 50%;
@@ -109,11 +101,10 @@ only screen and (-webkit-min-device-pixel-ratio : 1.5),
 only screen and (min-device-pixel-ratio : 1.5) {
     .cover  {
 	position:absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform:translate(-50%, -50%);
-
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform:translate(-50%, -50%);
     }
 }
 
