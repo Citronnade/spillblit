@@ -1,5 +1,3 @@
-var Tables = new Mongo.Collection("tables");
-
 Meteor.startup(function() {
 });
 

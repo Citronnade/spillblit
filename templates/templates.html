@@ -4,7 +4,24 @@
 <paper-button class="blue-button" id="create">Create</paper-button>
 </template>
 
-<template name="enterBills">
+<template name="home">
+<div class="cover-cont">
+	<span class="cover pontano" style="width: 200px">
+		<paper-button class="blue-button"><a class="nolink" href="/create">Create Table</a></paper-button><br>
+		<paper-button class="blue-button"><a class="nolink" href="/join">Join Table</a></paper-button><br>
+		<paper-button class="blue-button"><a class="nolink" href="/enterBills">Test: Enter Bills</a></paper-button>
+	</span>
+	<img>
+</div>
+</template>
+
+<template name="join">
+<paper-input-decorator floatingLabel label="Table ID"><input id="id" required></paper-input-decorator>
+<paper-button class="blue-button" id="join">Join</paper-button>
+</template>
+
+<template name="table">
+<paper-input-decorator floatingLabel label="Name"><input id="name" disabled={{hasSession "name"}} required value="{{session "name"}}"></paper-input-decorator>
 <div horizontal around-justified layout style="padding-left: 20em; padding-right: 20em">
 	<table>
 		<tbody>
@@ -67,33 +84,16 @@
 	<br>
 	<span style="text-align:center">Total: <span id="total">0.00</span></span><br>
 	<div horizontal center-justified layout>
-		<paper-button id="submit" raised>Submit</paper-button>
-		<paper-button id="reset" raised>Reset</paper-button>
+		<paper-button class="blue-button" id="submit">Submit</paper-button>
+		<paper-button id="reset">Reset</paper-button>
 	</div>
-</div>  
-</template>
-
-<template name="home">
-<div class="cover-cont">
-	<span class="cover pontano" style="width: 200px">
-		<paper-button class="blue-button"><a class="nolink" href="/create">Create Table</a></paper-button><br>
-		<paper-button class="blue-button"><a class="nolink" href="/join">Join Table</a></paper-button><br>
-		<paper-button class="blue-button"><a class="nolink" href="/enterBills">Test: Enter Bills</a></paper-button>
-	</span>
-	<img>
 </div>
+{{#each getTable this}}{{this}}<br>{{/each}}
 </template>
-
-<template name="join">
-<paper-input-decorator floatingLabel label="Your Name"><input id="name" required></paper-input-decorator>
-<paper-input-decorator floatingLabel label="Table Name"><input id="table" required></paper-input-decorator>
-<paper-button class="blue-button" id="join">Join</paper-button>
-</template>
-
 
 <template name="results">
   <div class="data-container">
-    <div class="left-data data-content" horizontal center-justified layout>
+    <div class="data-content"  center-justified horizontal layout>
       <table id="data-table">
 	<tr class="data-table-header">
 	  <td>Bill/Coin</td>

@@ -1,19 +1,26 @@
-var _id, name; //id used to identify the mongo document corresponding to the table
 Template.create.events({
 	"click #create": function() {
 		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
 			if (error) {console.log("Error: " + error);}
 			else {
-				_id = result;
-				name = $("#name").val();
-				console.log("_id: " + _id);
-				Router.go("/enterBills");
+				Session.set("_id", result);
+				Session.set("name", $("#name").val());
+				console.log("_id: " + Session.get("_id"));
+				Router.go("/table/" + Session.get("_id"));
 			}
 		});
 	}
 });
 
-Template.enterBills.events({
+Template.join.events({"click #join": function() {
+	//Session.set("_id", $("#id").val());
+	Router.go("/table/" + Session.get("_id"));
+}});
+
+Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
+Template.registerHelper("session", function(name) {return Session.get(name);});
+
+Template.table.events({
 	"click paper-icon-button": function(element) {
 		if (element.target.id.search("add") >= 0) {
 			document.getElementById(element.target.id.slice(3)).value++;
@@ -27,21 +34,22 @@ Template.enterBills.events({
 			}
 		}
 	}, 
-	
 	"click #submit": function() {
-		var bills = {_id: _id, name: name, bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		Session.set("name", $("#name").val());
+		var bills = {_id: Session.get("_id"), name: Session.get("name"), bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i].replace(".", ",")] = document.getElementById(denominations[i]).value;}
 		Meteor.call("enterBills", bills);
 	},
-        "click #reset": function(){
-	        var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-       	        for (var i = 0; i < denominations.length; i++){
-		    document.getElementById(denominations[i]).value = "0";
-		}
-	    enterBillsTotal();  //Reset total 
+	"click #reset": function() {
+		var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
+		for (var i = 0; i < denominations.length; i++) {document.getElementById(denominations[i]).value = "0";}
+    	enterBillsTotal();  //Reset total 
 	}
 });
 
+Template.table.helpers({
+	getTable: function(_id) {return objectToArray(Tables.findOne(_id));}
+});
 
 var enterBillsTotal = function() {
 	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
@@ -51,11 +59,7 @@ var enterBillsTotal = function() {
 	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
 };
 
-Template.join.events({
-	"click #join": function() {
-		Meteor.call("join", {name: $("#name").value(), table: $("#table").value()});
-	}
-});
+function objectToArray(object) {return _.map(object, function(value, key, list) {return " " + key.replace(",", ".") + ": " + ((typeof value == "object") ? objectToArray(value) : value);});}
 
 var getBills = function(tData){ //a function that calls a function. oh boy.
     console.log("tData inside getBills", tData);
