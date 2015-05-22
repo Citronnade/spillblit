@@ -11,7 +11,7 @@ Template.create.events({
 	}
 });
 
-Template.join.events({"click #join": function() {Router.go("/table/" + Session.get("_id"));}});
+Template.join.events({"click #join": function() {Router.go("/table/" + $("#id").val());}});
 
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
@@ -44,7 +44,22 @@ Template.table.events({
 });
 
 Template.table.helpers({
-	getTable: function(_id) {return objectToArray(Tables.findOne(_id));}
+	getDenominations: function() {return ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];},
+	getTable: function(_id) {return objectToArray(Tables.findOne(_id));},
+	getTableBills: function(_id) {
+		var table = Tables.findOne(_id, {fields: {name: 0, table: 0}});
+		delete table._id;
+		console.log(table);
+		var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"], tableBills = [];
+		for (var property in table) {
+			if (table.hasOwnProperty(property)) {
+				tableBills.push([property]);
+				for (var i = 0; i < denominations.length; i++) {tableBills[tableBills.length - 1].push(table[property][denominations[i].replace(".", ",")]);}
+			}
+		}
+		console.log(tableBills);
+		return tableBills;
+	}
 });
 
 var enterBillsTotal = function() {
