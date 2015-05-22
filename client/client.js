@@ -5,17 +5,13 @@ Template.create.events({
 			else {
 				Session.set("_id", result);
 				Session.set("name", $("#name").val());
-				console.log("_id: " + Session.get("_id"));
 				Router.go("/table/" + Session.get("_id"));
 			}
 		});
 	}
 });
 
-Template.join.events({"click #join": function() {
-	//Session.set("_id", $("#id").val());
-	Router.go("/table/" + Session.get("_id"));
-}});
+Template.join.events({"click #join": function() {Router.go("/table/" + Session.get("_id"));}});
 
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
