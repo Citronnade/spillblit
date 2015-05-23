@@ -94,9 +94,14 @@ core-header-panels{
     transform:translate(-50%, -50%);
 }
 
-.cover-icon {
-    width: 100px;
-    height: 100px;
+.cover-top{
+    height: 40%;
+}
+.cover-buttons {
+    height: 60%;
+    background-color: #333;
+}
+.cover-icon{
     color: green;
 }
 
