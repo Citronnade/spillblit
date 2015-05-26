@@ -10,3 +10,5 @@ ecwyne:polymer-elements
 autopublish
 insecure
 meteorhacks:kadira
+materialize:materialize
+sacha:spin
