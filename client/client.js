@@ -1,7 +1,9 @@
 Template.create.events({
 	"click #create": function() {
 		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
-			if (error) {console.log("Error: " + error);}
+			if (error) {
+                console.log("Error: " + error);
+            }
 			else {
 				Session.set("_id", result);
 				Session.set("name", $("#name").val());
@@ -29,7 +31,7 @@ Template.table.events({
 				enterBillsTotal();
 			}
 		}
-	}, 
+	},
 	"click #submit": function() {
 		Session.set("name", $("#name").val());
 		var bills = {_id: Session.get("_id"), name: Session.get("name"), bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
@@ -39,7 +41,7 @@ Template.table.events({
 	"click #reset": function() {
 		var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
 		for (var i = 0; i < denominations.length; i++) {document.getElementById(denominations[i]).value = "0";}
-    	enterBillsTotal();  //Reset total 
+    	enterBillsTotal();  //Reset total
 	}
 });
 
