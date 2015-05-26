@@ -112,7 +112,13 @@
 {{#each getTable this}}{{this}}<br>{{/each}}
 <table>
 	<thead><tr><th>Name</th>{{#each getDenominations}}<th>{{this}}</th>{{/each}}</tr></thead>
-	<tbody>{{#each getTableBills this}}<tr>{{#each this}}<td>{{this}}</td>{{/each}}</tr>{{/each}}</tbody>
+	<tbody>
+    {{#each getTableBills this}}
+        <tr>
+            {{#each this}}
+                <td>{{this}}</td>
+            {{/each}}</tr>
+    {{/each}}</tbody>
 </table>
 </template>
 
