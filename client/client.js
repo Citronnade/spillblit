@@ -18,60 +18,16 @@ Template.join.events({"click #join": function() {Router.go("/table/" + $("#id").
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
 
-Template.table.events({
-	"click paper-icon-button": function(element) {
-		if (element.target.id.search("add") >= 0) {
-			document.getElementById(element.target.id.slice(3)).value++;
-			enterBillsTotal();
-		}
-		else if (element.target.id.search("remove") >= 0) {
-			var inputElement = document.getElementById(element.target.id.slice(6));
-			if (inputElement.value > 0) {
-				inputElement.value--;
-				enterBillsTotal();
-			}
-		}
-	},
-	"click #submit": function() {
-		Session.set("name", $("#name").val());
-		var bills = {_id: Session.get("_id"), name: Session.get("name"), bills: {}}, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-		for (var i = 0; i < denominations.length; i++) {bills.bills[denominations[i].replace(".", ",")] = document.getElementById(denominations[i]).value;}
-		Meteor.call("enterBills", bills);
-	},
-	"click #reset": function() {
-		var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-		for (var i = 0; i < denominations.length; i++) {document.getElementById(denominations[i]).value = "0";}
-    	enterBillsTotal();  //Reset total
-	}
+Template.registerHelper("getResults", function(table){
+
+    return bills_returned_array;
 });
 
-Template.table.helpers({
-	getDenominations: function() {return ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];},
-	getTable: function(_id) {return objectToArray(Tables.findOne(_id));},
-	getTableBills: function(_id) {
-        var bills_returned = payBills(tableData);
-        console.log(bills_returned);
-        var bills_0 = bills_returned[0];
-		var table = Tables.findOne(_id, {fields: {name: 0, table: 0}});
-		delete table._id;
-		//console.log(table);
-		var denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"], tableBills = [];
-        console.log(tableBills);
-		for (var property in table) {
-            console.log("property", property);
-			if (table.hasOwnProperty(property)) {
-				tableBills.push([property]);
-                for (var i = 0; i < denominations.length; i++) {
-                    tableBills[tableBills.length - 1].push(bills_0[denominations[i]]);
-                    console.log(tableBills);
-                }
-			}
-		}
+var getDenominations = function(){
+    return ["0.01", "0.05", "0.10", "0.25", "1", "5", "10", "20", "50", "100"];
+};
 
-        console.log(tableBills);
-		return tableBills;
-	}
-});
+
 
 var enterBillsTotal = function() {
 	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
@@ -81,10 +37,15 @@ var enterBillsTotal = function() {
 	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
 };
 
-function objectToArray(object) {return _.map(object, function(value, key, list) {return " " + key.replace(",", ".") + ": " + ((typeof value == "object") ? objectToArray(value) : value);});}
+function objectToArray(object) {
+    var keys = Object.keys(object).sort(function (a,b){return parseFloat(a)-parseFloat(b)});
+    return _.reduce(keys, function(memo, key){
+        memo.push([key, object[key]]);
+        return memo;
+    }, []);
+}
 
-var getBills = function(tData){ //a function that calls a function. oh boy.
-    //console.log("tData inside getBills", tData);
+var getBills = function(tData){
     var totalBills = _.reduce(tData, function(memo, person){
         memo["100"]+=person.cash["100"];
         memo["50"]+=person.cash["50"];
@@ -117,78 +78,76 @@ var getBills = function(tData){ //a function that calls a function. oh boy.
 
 };
 
+var payBills = function(tData){ //assigns bills to everybody
+    var clear_wallet = function(wallet){
+        return _.reduce(wallet, function(memo, value, note){
+            memo[note] = 0;
+            return memo;
+        }, {});
 
-
-var clear_wallet = function(wallet){
-    return _.reduce(wallet, function(memo, value, note){
-        memo[note] = 0;
-        return memo;
-    }, {});
-
-};
+    };
 
 //console.log("tableData before getBills", tableData);
 //console.log(getBills(tableData));
-//console.log("tableData after getBills", tableData);
+//co nsole.log("tableData after getBills", tableData);
 
-var add_wallets = function(wallet1, wallet2) { //this adds together 2 "wallets" of bills
-    var new_wallet = _.reduce(wallet1, function(memo, value, denomination){
-        memo[denomination] = wallet1[denomination] + wallet2[denomination];
-        return memo;
-    }, {});
-    return new_wallet;
+    var add_wallets = function(wallet1, wallet2) { //this adds together 2 "wallets" of bills
+        var new_wallet = _.reduce(wallet1, function(memo, value, denomination){
+            memo[denomination] = wallet1[denomination] + wallet2[denomination];
+            return memo;
+        }, {});
+        return new_wallet;
 
-};
+    };
 
-var diff_wallets = function(wallet1, wallet2){
-    var new_wallet = _.reduce(wallet1, function(memo, value, denomination){
-        memo[denomination] = wallet1[denomination] - wallet2[denomination];
-        return memo;
-    }, {});
-    return new_wallet
-};
+    var diff_wallets = function(wallet1, wallet2){
+        var new_wallet = _.reduce(wallet1, function(memo, value, denomination){
+            memo[denomination] = wallet1[denomination] - wallet2[denomination];
+            return memo;
+        }, {});
+        return new_wallet
+    };
 
-var get_change = function(excess, denominations) {
-    excess = excess * -1; //just easier to work with
-    excess = excess.toFixed(2); //should be doing this a LOT more
-    //console.log("excess", excess);
-    denominations = Object.keys(denominations).sort(function(a,b){return parseFloat(b)-parseFloat(a);});
+    var get_change = function(excess, denominations) {
+        excess = excess * -1; //just easier to work with
+        excess = excess.toFixed(2); //should be doing this a LOT more
+        //console.log("excess", excess);
+        denominations = Object.keys(denominations).sort(function(a,b){return parseFloat(b)-parseFloat(a);});
 
-    var bill_list = _.reduce(denominations, function(memo, key){ //PUT THIS SOMEHWERE ELSE OH MY GOD WE NEED THIS SO BADLY
-        memo[key] = 0;
-        return memo;
-    },{});
+        var bill_list = _.reduce(denominations, function(memo, key){ //PUT THIS SOMEHWERE ELSE OH MY GOD WE NEED THIS SO BADLY
+            memo[key] = 0;
+            return memo;
+        },{});
 
-    //console.log("bill_list", bill_list);
+        //console.log("bill_list", bill_list);
 
-    var bills_returned = _.reduce(denominations, function(memo, key){
-        key = parseFloat(key); //key is a string...
-        if (key < 1){ //fix for 0.1 vs 0.10 duplicates
-            key = key.toFixed(2);
-        }
-        while (key <= excess){ //can pay back change
-            memo[key]++;
-            excess-=key;
-            excess = excess.toFixed(2);
-        }
-        return memo;
-    }, bill_list);
-    //console.log("bills_returned", bills_returned);
-    return bills_returned;
+        var bills_returned = _.reduce(denominations, function(memo, key){
+            key = parseFloat(key); //key is a string...
+            if (key < 1){ //fix for 0.1 vs 0.10 duplicates
+                key = key.toFixed(2);
+            }
+            while (key <= excess){ //can pay back change
+                memo[key]++;
+                excess-=key;
+                excess = excess.toFixed(2);
+            }
+            return memo;
+        }, bill_list);
+        //console.log("bills_returned", bills_returned);
+        return bills_returned;
 
-}; //yay change!
-var wallet_to_cash = function(wallet_in){
-    //Object.keys(wallet_in).reduce(function(sum, key){
-    //console.log("wallet_in:", wallet_in);
-    return _.reduce(Object.keys(wallet_in), function(sum, key){
-      //console.log("sum", sum);
-      //console.log("key", key);
-      //console.log("wallet_in[%s]", key, wallet_in[key]);
-      return parseFloat(sum) + wallet_in[key] * parseFloat(key);
-  }, 0);
+    }; //yay change!
+    var wallet_to_cash = function(wallet_in){
+        //Object.keys(wallet_in).reduce(function(sum, key){
+        //console.log("wallet_in:", wallet_in);
+        return _.reduce(Object.keys(wallet_in), function(sum, key){
+            //console.log("sum", sum);
+            //console.log("key", key);
+            //console.log("wallet_in[%s]", key, wallet_in[key]);
+            return parseFloat(sum) + wallet_in[key] * parseFloat(key);
+        }, 0);
 
-};
-var payBills = function(tData){ //assigns bills to everybody
+    };
     var tax_percent = 0.08; //this hsould be a param or something
     var tip_percent = 0.15;
     var total_bills = getBills(tableData);
@@ -496,9 +455,29 @@ var payBills = function(tData){ //assigns bills to everybody
         net_wallets.push(diff_wallets(bills_returned[j], orig_all_wallets[j]));
     }
     //console.log(net_wallets);
-    return net_wallets;
+
+    var final_data = [];
+
+    for (var j=0; j < net_wallets.length; j++){
+        var person = {};
+        person['name'] = tData[j]["name"];
+        person['net_bills'] = net_wallets[j];
+        person['tip_owed'] = tip_owed[j];
+        final_data.push(person);
+    }
+
+    console.log("final_data", final_data);
+    return final_data;
 };
 
 
+var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right?
+console.log(bills_returned);
 
-payBills(tableData);
+var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //this better be reactive...
+    wallet["net_bills"] = objectToArray(wallet["net_bills"]);
+    memo.push(wallet);
+    return memo;
+    },[]);
+
+console.log(bills_returned_array);
