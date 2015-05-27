@@ -7,3 +7,17 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+
+
+
+table.hoverable2 tbody tr{
+    -webkit-transition:background-color .25s ease;
+    -moz-transition:background-color .25s ease;
+    -o-transition:background-color .25s ease;
+    -ms-transition:background-color .25s ease;
+    transition:background-color .25s ease}
+table.hoverable2 tbody tr:hover{
+    background-color:#7FFFD4;  /*#f2f2f2*/   
+  /*change color directly in materialize.min.css if wanted later */
+}
