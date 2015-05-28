@@ -11,6 +11,7 @@ main {
 
 
 
+/*fooling around with table look */
 table.hoverable2 tbody tr{
     -webkit-transition:background-color .25s ease;
     -moz-transition:background-color .25s ease;
@@ -20,4 +21,10 @@ table.hoverable2 tbody tr{
 table.hoverable2 tbody tr:hover{
     background-color:#7FFFD4;  /*#f2f2f2*/   
   /*change color directly in materialize.min.css if wanted later */
+}
+
+#waiting-prompt{
+    font-weight: bold;
+    font-family: "Roboto Bold 700", "Roboto", sans-serif;
+    
 }
