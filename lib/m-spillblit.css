@@ -19,7 +19,7 @@ table.hoverable2 tbody tr{
     -ms-transition:background-color .25s ease;
     transition:background-color .25s ease}
 table.hoverable2 tbody tr:hover{
-    background-color:#7FFFD4;  /*#f2f2f2*/   
+    background-color:#b2dfdb;/*#b9f6ca;/*green/*#a5d6a7;/*#00897b;/*#00CC99/*#7FFFD4;  /*#f2f2f2*/   
   /*change color directly in materialize.min.css if wanted later */
 }
 
