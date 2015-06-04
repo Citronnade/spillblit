@@ -79,3 +79,24 @@
     </tr>
   </table>
 </template>
+
+
+
+<template name="resulted">
+  <table>
+    <tr class="data-table-header">
+      <th data-field="type">Denomination</th>
+      <th data-field="put">Put in Pile</th>
+      <th data-field="take">Take from Pile</th>
+    </tr>
+    {{#each resultsData}}
+    <tr>
+      <td>{{this.denomination}}</td>
+      <td>{{this.put}}</td>
+      <td>{{this.take}}</td>
+    </tr>
+    {{/each}}
+  </table>
+</template>
+  
+  
