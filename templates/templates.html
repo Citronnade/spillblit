@@ -47,12 +47,36 @@
 {{#each getResults}}
     <tr>
         <td>Name: {{this.name}}</td>
-        {{#each this.net_bills}}
-            Change in {{this.[0]}}: {{this.[1]}}
-        {{/each}}
+        {{>person this}}
         <td>Tip owed: {{this.tip_owed}}</td>
-    </tr>
-{{/each}}
+    </tr>{{/each}}
 </tr>
 </table>
+</template>
+
+<template name="person">
+    {{#each this.net_bills}}
+        Change in {{this.[0]}}: {{this.[1]}}
+    {{/each}}
+</template>
+
+<template name="aggregate_denomination_view">
+    <!-- use some inserted data to check which template to include-->
+    {{#each get_denominations}}
+        <input type="text" id="{{this.[0]}}" value="0">
+        <a class="btn-large" id="up{{this.[0]}}">+1</a>
+        <a class="btn-large" id="down{{this.[0]}}">-1</a>
+        <br>
+    {{/each}}
+</template>
+
+<template name="enter_denominations">
+    <!-- each a single_denomination_view and denomination_button, add
+    some click events on THIS template that catch the ones from below-->
+
+</template>
+
+
+<template name="denomination_button">
+    <!-- Button for the denominations? -->
 </template>

@@ -16,7 +16,7 @@ Meteor.methods({
 		delete bills.bills;
 		delete bills.name;
 		console.log(bills);
-		Tables.update(_id, {$set: bills});
+		//Tables.update(_id, {$set: bills});
 		console.log(Tables.findOne(_id));
 	}
 });

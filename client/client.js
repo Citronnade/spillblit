@@ -1,3 +1,15 @@
+var denominations = ["0.01", "0.05", "0.10", "0.25", "1", "5", "10", "20", "50", "100"];
+var denominations_dict = _.reduce(denominations, function(memo, denomination){
+    memo[denomination] = 0;
+    return memo;
+}, {});
+
+Meteor.startup(function() {
+
+    Session.setDefault("denominations", denominations_dict);
+    console.log("ota", objectToArray(Session.get("denominations")));
+});
+
 Template.create.events({
 	"click #create": function() {
 		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
@@ -13,6 +25,52 @@ Template.create.events({
 	}
 });
 
+
+Template.aggregate_denomination_view.helpers({
+    "get_denominations": function () {
+        console.log("ota", objectToArray(Session.get("denominations")));
+        return objectToArray(Session.get("denominations"));
+    }
+
+});
+
+Template.aggregate_denomination_view.events({
+    "change input" : function(e) {
+        console.log("change");
+        console.log(e.target.value);
+    },
+    "click a" : function(e){
+        console.log("click");
+        var sign = e.target.id.replace(/\d+.*$/, "");
+        sign = sign == "up";
+        console.log(sign);
+        var origid = e.target.id.replace(/^[A-Za-z]*/, "");
+        console.log(origid);
+
+        var origelement = $("#" + origid);
+        var prev = origelement.val();
+        console.log(origelement);
+        if (sign){
+            prev++;
+            origelement.val(prev);
+            origelement.trigger("change");
+        }
+        else{
+            prev--;
+            origelement.val(prev);
+            origelement.trigger("change");
+        }
+
+    }
+});
+
+Template.enter_denominations.events({
+    "change input" : function(e) {
+        console.log(e);
+    }
+});
+
+
 Template.join.events({"click #join": function() {Router.go("/table/" + $("#id").val());}});
 
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
@@ -24,18 +82,10 @@ Template.registerHelper("getResults", function(table){
 });
 
 var getDenominations = function(){
-    return ["0.01", "0.05", "0.10", "0.25", "1", "5", "10", "20", "50", "100"];
+    return denominations = ["0.01", "0.05", "0.10", "0.25", "1", "5", "10", "20", "50", "100"];
 };
 
 
-
-var enterBillsTotal = function() {
-	var total = 0, denominations = ["0.01", "0.05", "0.10", "0.25", "0.50", "1", "2", "5", "10", "20", "50", "100"];
-	for (var i = 0; i < denominations.length; i++) {total += Number(document.getElementById(denominations[i]).value) * Number(denominations[i]);}
-	var totalElement = document.getElementById("total");
-	while (totalElement.firstChild) {totalElement.removeChild(totalElement.firstChild);}
-	totalElement.appendChild(document.createTextNode(total.toFixed(2)));
-};
 
 function objectToArray(object) {
     var keys = Object.keys(object).sort(function (a,b){return parseFloat(a)-parseFloat(b)});
@@ -473,6 +523,7 @@ var payBills = function(tData){ //assigns bills to everybody
 
 var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right?
 console.log(bills_returned);
+
 
 var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //this better be reactive...
     wallet["net_bills"] = objectToArray(wallet["net_bills"]);

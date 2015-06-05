@@ -6,7 +6,7 @@
 
 meteor-platform
 iron:router
-ecwyne:polymer-elements
 autopublish
 insecure
 meteorhacks:kadira
+ecwyne:polymer-elements
