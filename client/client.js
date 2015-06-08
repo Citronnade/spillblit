@@ -8,21 +8,27 @@ Meteor.startup(function() {
 
     Session.setDefault("denominations", denominations_dict);
     console.log("ota", objectToArray(Session.get("denominations")));
+    console.log("dump", Tables.find().fetch());
 });
 
 Template.create.events({
 	"click #create": function() {
-		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
-			if (error) {
-                //console.log("Error: " + error);
-            }
-			else {
-				Session.set("_id", result);
-				Session.set("name", $("#name").val());
-				Router.go("/table/" + Session.get("_id"));
-			}
-		});
-	}
+		Meteor.call("create", {
+            "tableName": $("#table").val(),
+            "tableData": [
+                init_person($("name"))
+            ]},
+            function(error, result) {
+                if (error) {
+                    //console.log("Error: " + error);
+                }
+                else {
+                    Session.set("_id", result);
+                    Session.set("name", $("#name").val());
+                    Router.go("/table/" + Session.get("_id"));
+                }
+            });
+    }
 });
 
 
@@ -71,7 +77,13 @@ Template.enter_denominations.events({
 });
 
 
-Template.join.events({"click #join": function() {Router.go("/table/" + $("#id").val());}});
+Template.join.events({
+    "click #join": function() {
+        console.log("???");
+        Meteor.call("join", $("#name").val(), $("#id").val());
+        Router.go("/table/" + $("#id").val());
+    }
+});
 
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
@@ -81,10 +93,9 @@ Template.registerHelper("getResults", function(table){
     return bills_returned_array;
 });
 
-var getDenominations = function(){
+var getDenominationsList = function(){
     return denominations = ["0.01", "0.05", "0.10", "0.25", "1", "5", "10", "20", "50", "100"];
 };
-
 
 
 function objectToArray(object) {
