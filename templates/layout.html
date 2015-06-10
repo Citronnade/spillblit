@@ -1,26 +1,46 @@
-<head>
-<link href="/bower_components/core-header-panel/core-header-panel.html" rel="import">
-<link href="/bower_components/core-toolbar/core-toolbar.html" rel="import">
-<link href="/bower_components/paper-button/paper-button.html" rel="import">
-<link href="/bower_components/paper-checkbox/paper-checkbox.html" rel="import">
-<link href="/bower_components/paper-icon-button/paper-icon-button.html" rel="import">
-<link href="/bower_components/paper-input/paper-input.html" rel="import">
-<meta charset="UTF-8">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-<title>Spillblit</title>
-</head>
 
-<body>
-</body>
+
+<template name = "mainFooter">
+  <footer class="page-footer green darken-2">
+    <div class="footer-copyright">
+      <div class="container right-align">
+	Lise Ho, Fawn Wong, Sean Yip, Max Zhou
+      </div>
+    </div>
+  </footer>
+</template>
+<template name="mainHeader">
+  <nav class="green">
+    <div class="container">
+      <div class="nav-wrapper">
+	<a href="/" class="brand-logo">SPILLBLIT</a>
+	<ul id="nav-mobile" class="right hide-on-med-and-down">
+	  <li><a href="/create">Create</a></li>
+	  <li><a href="/join">Join</a></li>
+	  <li><a href="./m-table.html">Table</a></li>
+	</ul>
+      </div>
+    </div>
+  </nav>
+
+</template>
 
 <template name="layout">
-<div class="container">
-<core-header-panel fit>
-	<core-toolbar><div><a class="nolink header montserrat" href="/"><h2>SPILLBLIT</h2></a></div></core-toolbar>
-	<div class="content" fit>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Spillblit</title>
+  </head>
+
+  {{>yield "header"}}
+  <main>
+    <div class="container">
+      <div class="content">
 	{{>yield}}
-	</div>
-</core-header-panel>
-</div>
+      </div>
+    </div>
+  </main>
+  {{>yield "footer"}}
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="../lib/materialize.min.js"></script>
 </template>

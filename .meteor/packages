@@ -9,4 +9,6 @@ iron:router
 autopublish
 insecure
 meteorhacks:kadira
-ecwyne:polymer-elements
+materialize:materialize
+sacha:spin
+jquery

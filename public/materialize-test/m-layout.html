@@ -1,0 +1,28 @@
+<head>
+  <link type="text/css" rel="stylesheet" href="lib/m-spillblit.css">
+  <link type="text/css" rel="stylesheet" href="lib/materialize.min.css"  media="screen,projection"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Spillblit</title>
+</head>
+
+<body>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="lib/materialize.min.js"></script>
+</body>
+
+<template name="m-layout">
+  <div class="container">
+    <nav>
+      <div class="nav-wrapper">
+	<a href="/" class="brand-logo">SPILLBLIT</a>
+	<ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/create">Create</a></li>
+          <li><a href="/join">Join</a></li>
+	</ul>
+      </div>
+    </nav>
+    <div class="content">
+      {{>yield}}
+    </div>
+  </div>
+</template>
