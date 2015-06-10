@@ -9,6 +9,8 @@ Meteor.startup(function() {
     Session.setDefault("denominations", denominations_dict);
     console.log("ota", objectToArray(Session.get("denominations")));
     console.log("dump", Tables.find().fetch());
+    Session.setDefault("name", "Joe");
+    Session.setDefault("_id", "h3pTE4QJA2hTMTFP4");
 });
 
 Template.create.events({
@@ -43,7 +45,9 @@ Template.aggregate_denomination_view.helpers({
 Template.aggregate_denomination_view.events({
     "change input" : function(e) {
         console.log("change");
+        console.log(e.target.id);
         console.log(e.target.value);
+        Meteor.call("update", Session.get("name"), Session.get("_id"), e.target.id, e.target.value);
     },
     "click a" : function(e){
         console.log("click");
@@ -54,7 +58,7 @@ Template.aggregate_denomination_view.events({
         console.log(origid);
 
         var origelement = $("#" + origid);
-        var prev = origelement.val();
+        var prev = parseInt(origelement.val());
         console.log(origelement);
         if (sign){
             prev++;

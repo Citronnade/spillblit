@@ -31,6 +31,32 @@ Meteor.methods({
 
             })
 
+    },
+    update: function(name, id, denomination, value){
+        denomination = denomination.replace(".", ",");
+        var field = "tableData.$.cash." +  denomination;
+        //console.log("field", field);
+        var set = {
+            field: {
+            }
+        };
+        set[field] = parseInt(value);
+        console.log("set", set);
+        var _id = Tables.update(
+            {"_id": id, "tableData.name": name},
+            {$set: set
+            },
+
+            function(err, no){
+                if (err){console.log("err", err);}
+                console.log("no", no);
+            }
+
+        );
+        console.log(Tables.find().fetch().slice(-1)[0].tableData);
+        console.log("_id", _id);
+        return _id;
     }
+
 });
 
