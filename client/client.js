@@ -1,3 +1,6 @@
+
+
+/*
 Template.create.events({
 	"click #create": function() {
 		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
@@ -14,7 +17,7 @@ Template.create.events({
 });
 
 Template.join.events({"click #join": function() {Router.go("/table/" + $("#id").val());}});
-
+*/
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
 
@@ -470,7 +473,7 @@ var payBills = function(tData){ //assigns bills to everybody
     return final_data;
 };
 
-
+/*
 var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right?
 console.log(bills_returned);
 
@@ -481,3 +484,47 @@ var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //th
     },[]);
 
 console.log(bills_returned_array);
+*/
+
+var return_results = function(tableData){
+    console.log("WOOHOO");
+    var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right?
+    console.log(bills_returned);
+    
+    var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //this better be reactive...
+	wallet["net_bills"] = objectToArray(wallet["net_bills"]);
+	memo.push(wallet);
+	return memo;
+    },[]);
+    
+    console.log(bills_returned_array);
+    return bills_returned_array[0];
+    
+    /*
+    resultsData=[
+	{
+	    "denominations":"Maddy",
+	    "put": 1,
+	    "take":2
+	},
+	{
+	    "denominations":"Fair",
+	    "put": 4,
+	    "take": 12
+	},
+	{
+	    "denominations":"Soldier",
+	    "put": 884,
+	    "take": 412
+	}
+    ]
+    return resultsData
+*/
+}
+
+
+Template.resulted.helpers(
+    {
+	"resultsData": return_results(tableData)
+    }
+)

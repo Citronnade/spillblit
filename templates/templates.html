@@ -33,13 +33,13 @@
     <div class="row">
       <div class="col s6 center-align">
         <i class = "large mdi-maps-local-restaurant"></i><br>
-        <a class="waves-effect waves-light btn-large" href="./m-create.html">
+        <a class="waves-effect waves-light btn-large" href="/create">
           Create a table
         </a>
       </div>
       <div class="col s6 center-align">
         <i class = "large mdi-social-person-add"></i><br>
-        <a class="waves-effect waves-light btn-large" href="./m-join.html">
+        <a class="waves-effect waves-light btn-large" href="/join">
           Join a table
         </a>
       </div>
@@ -80,22 +80,28 @@
   </table>
 </template>
 
+<template name="result">
 
 
+</template>
 <template name="resulted">
-  <table>
-    <tr class="data-table-header">
-      <th data-field="type">Denomination</th>
-      <th data-field="put">Put in Pile</th>
-      <th data-field="take">Take from Pile</th>
-    </tr>
-    {{#each resultsData}}
-    <tr>
-      <td>{{this.denomination}}</td>
-      <td>{{this.put}}</td>
-      <td>{{this.take}}</td>
-    </tr>
-    {{/each}}
+  <table class="hoverable2 centered bordered" id="data-table">
+    <thead>
+      <tr class="data-table-header">
+	<th data-field="type">Denomination</th>
+	<th data-field="put">Put in Pile</th>
+	<th data-field="take">Take from Pile</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each resultsData}}
+      <tr>
+	<td>{{denominations}}</td>
+	<td>{{put}}</td>
+	<td>{{take}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
   </table>
 </template>
   
