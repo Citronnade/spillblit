@@ -88,7 +88,7 @@
 <template name="aggregate_denomination_view">
     <!-- use some inserted data to check which template to include-->
     {{#each get_denominations}}
-        <div class="row">
+        <!--div class="row">
             <div class="col s3">
                 {{this.[0]}}
             </div>
@@ -97,7 +97,17 @@
                 <a class="btn-large" id="up{{this.[0]}}">+1</a>
                 <a class="btn-large" id="down{{this.[0]}}">-1</a>
             </div>
-        </div>
+        </div-->
+	<div class="row">
+		<div class="input-field col s8">
+		  <input id="0.01" type="text" class="validate">
+		  <label for="0.01">0.01</label>
+		</div>
+		<div class="col s4 left-align">
+		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2"><i class="mdi-content-add"></i></a>
+		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2"><i class="mdi-content-remove"></i></a>
+		</div>
+	</div>
     {{/each}}
 </template>
 
