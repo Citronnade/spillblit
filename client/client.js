@@ -57,7 +57,7 @@ Template.aggregate_denomination_view.events({
         var origid = e.target.id.replace(/^[A-Za-z]*/, "");
         console.log(origid);
 
-        var origelement = $("#" + origid);
+        var origelement = $("input[id='" + origid + "'");;
         var prev = parseInt(origelement.val());
         console.log(origelement);
         if (sign){

@@ -1,4 +1,4 @@
-<template name="createForm">
+<template name="create">
   <h2 class="center-align">Create a New Table</h2>
   <div class="row">
     <form class="col s12">
@@ -88,10 +88,16 @@
 <template name="aggregate_denomination_view">
     <!-- use some inserted data to check which template to include-->
     {{#each get_denominations}}
-        <input type="text" id="{{this.[0]}}" value="0">
-        <a class="btn-large" id="up{{this.[0]}}">+1</a>
-        <a class="btn-large" id="down{{this.[0]}}">-1</a>
-        <br>
+        <div class="row">
+            <div class="col s3">
+                {{this.[0]}}
+            </div>
+            <div class="col s9">
+                <input type="text" id="{{this.[0]}}" value="0">
+                <a class="btn-large" id="up{{this.[0]}}">+1</a>
+                <a class="btn-large" id="down{{this.[0]}}">-1</a>
+            </div>
+        </div>
     {{/each}}
 </template>
 
@@ -105,15 +111,7 @@
 <template name="denomination_button">
     <!-- Button for the denominations? -->
 </template>
-        {{#each this.net_bills}}
-        Change in {{this.[0]}}: {{this.[1]}}
-        {{/each}}
-        <td>Tip owed: {{this.tip_owed}}</td>
-      </tr>
-      {{/each}}
-    </tr>
-  </table>
-</template>
+
 
 
 
