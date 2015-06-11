@@ -100,12 +100,12 @@
         </div-->
 	<div class="row">
 		<div class="input-field col s8">
-		  <input id="0.01" type="text" class="validate">
-		  <label for="0.01">0.01</label>
+		  <input id="{{this.[0]}}" type="text" class="validate">
+		  <label for="{{this.[0]}}">{{this.[0]}}</label>
 		</div>
 		<div class="col s4 left-align">
-		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2"><i class="mdi-content-add"></i></a>
-		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2"><i class="mdi-content-remove"></i></a>
+		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2" id="up{{this.[0]}}"><i class="mdi-content-add"></i></a>
+		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2" id="down{{this.[0]}}"><i class="mdi-content-remove"></i></a>
 		</div>
 	</div>
     {{/each}}
