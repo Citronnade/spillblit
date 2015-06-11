@@ -49,20 +49,25 @@
 
 
 <template name="join">
-  <h2 class="center-align">Join a Table</h2>
-  <div class="row">
-    <form class="col s12">
-      <div class="input-field col s12">
-        <i class="mdi-action-label prefix"></i>
-        <input id="id" type="text" class="validate">
-        <label for="id">Table ID</label>
-      </div>
-      <div class="col s12 center-align">
-        <br>
-        <a class="waves-effect waves-light btn center-align" id="join">Join Table</a>
-      </div>
-    </form>
-  </div>
+    <h2 class="center-align">Join a Table</h2>
+    <div class="row">
+        <form class="col s12">
+            <div class="input-field col s12">
+                <i class="mdi-action-label prefix"></i>
+                <input id="id" type="text" class="validate">
+                <label for="id">Table ID</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="mdi-action-label prefix"></i>
+                <input id="name" type="text" class="validate">
+                <label for="name">Your Name</label>
+            </div>
+            <div class="col s12 center-align">
+                <br>
+                <a class="waves-effect waves-light btn center-align" id="join">Join Table</a>
+            </div>
+        </form>
+    </div>
 
 </template>
 
@@ -100,7 +105,7 @@
         </div-->
 	<div class="row">
 		<div class="input-field col s8">
-		  <input id="{{this.[0]}}" type="text" class="validate">
+		  <input id="{{this.[0]}}" type="number" class="validate">
 		  <label for="{{this.[0]}}">{{this.[0]}}</label>
 		</div>
 		<div class="col s4 left-align">

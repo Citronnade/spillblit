@@ -9,25 +9,25 @@ Meteor.startup(function() {
     Session.setDefault("denominations", denominations_dict);
     console.log("ota", objectToArray(Session.get("denominations")));
     console.log("dump", Tables.find().fetch());
-    Session.setDefault("name", "Joe");
-    Session.setDefault("_id", "h3pTE4QJA2hTMTFP4");
 });
 
 Template.create.events({
 	"click #create": function() {
+        var name = $("#name").val();
 		Meteor.call("create", {
             "tableName": $("#table").val(),
             "tableData": [
-                init_person($("name"))
+                init_person(name)
             ]},
             function(error, result) {
                 if (error) {
                     //console.log("Error: " + error);
                 }
                 else {
-                    Session.set("_id", result);
-                    Session.set("name", $("#name").val());
+                    Session.setPersistent("_id", result);
+                    Session.setPersistent("name", name);
                     Router.go("/table/" + Session.get("_id"));
+
                 }
             });
     }
@@ -49,28 +49,37 @@ Template.aggregate_denomination_view.events({
         console.log(e.target.value);
         Meteor.call("update", Session.get("name"), Session.get("_id"), e.target.id, e.target.value);
     },
-    "click a" : function(e){
+    "click a" : function(e) {
         console.log("click");
-        var sign = e.target.id.replace(/\d+.*$/, "");
-        sign = sign == "up";
-        console.log(sign);
-        var origid = e.target.id.replace(/^[A-Za-z]*/, "");
-        console.log(origid);
+        console.log("cur target", e.currentTarget);
+        if (e.currentTarget.tagName.toLowerCase() === 'a') {
+            var sign = e.currentTarget.id.replace(/\d+.*$/, "");
+            console.log("e sign", sign);
+            sign = sign == "up";
+            console.log("sign", sign);
+            var origid = e.currentTarget.id.replace(/^[A-Za-z]*/, "");
+            console.log("origid", origid);
 
-        var origelement = $("input[id='" + origid + "'");;
-        var prev = parseInt(origelement.val());
-        console.log(origelement);
-        if (sign){
-            prev++;
-            origelement.val(prev);
-            origelement.trigger("change");
-        }
-        else{
-            prev--;
-            origelement.val(prev);
-            origelement.trigger("change");
-        }
+            var origelement = $("input[id='" + origid + "']");
 
+            if (origelement.val() == ""){
+                origelement.val(0);
+            }
+            var prev = parseInt(origelement.val());
+            console.log("prev", prev);
+            console.log("origelement", origelement);
+            if (sign) {
+                prev++;
+                origelement.val(prev);
+                origelement.trigger("change");
+            }
+            else {
+                prev--;
+                origelement.val(prev);
+                origelement.trigger("change");
+            }
+
+        }
     }
 });
 
@@ -83,9 +92,12 @@ Template.enter_denominations.events({
 
 Template.join.events({
     "click #join": function() {
-        console.log("???");
-        Meteor.call("join", $("#name").val(), $("#id").val());
-        Router.go("/table/" + $("#id").val());
+        var id = $("#id").val();
+        var name = $("#name").val();
+        Session.setPersistent("name", name);
+        Session.setPersistent("_id", id);
+        Meteor.call("join", name, id);
+        Router.go("/table/" + id);
     }
 });
 
