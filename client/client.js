@@ -43,12 +43,13 @@ Template.aggregate_denomination_view.helpers({
 });
 
 Template.aggregate_denomination_view.events({
-    "change input" : function(e) {
+    "change input[type=\"number\"]" : function(e) {
         console.log("change");
         console.log(e.target.id);
         console.log(e.target.value);
         Meteor.call("update", Session.get("name"), Session.get("_id"), e.target.id, e.target.value);
     },
+
     "click a" : function(e) {
         console.log("click");
         console.log("cur target", e.currentTarget);
@@ -80,6 +81,15 @@ Template.aggregate_denomination_view.events({
             }
 
         }
+    }
+});
+
+Template.enter_check.events({
+    "change input": function(e){
+        console.log("check amt changed");
+        console.log("new amt:", e.target.value);
+        Meteor.call("updateCheck", Session.get("name", Session.get("_id"), e.target.value));
+        e.preventDefault();
     }
 });
 
