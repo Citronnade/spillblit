@@ -89,19 +89,23 @@
     <thead>
       <tr class="data-table-header">
 	<th data-field="type">Denomination</th>
-	<th data-field="put">Put in Pile</th>
-	<th data-field="take">Take from Pile</th>
+	<th data-field="put">Put/Take in/from Pile</th>
       </tr>
     </thead>
     <tbody>
-      {{#each resultsData}}
+        
+      {{#each resultsData.[0].net_bills}} 
+      <!-- ^^^we need to change this to check the name later -->
       <tr>
-	<td>{{denominations}}</td>
-	<td>{{put}}</td>
-	<td>{{take}}</td>
+	<td>{{[0]}}</td>
+	<td>{{[1]}}</td>
       </tr>
       {{/each}}
     </tbody>
   </table>
+</template>
+
+<template name="data_results">
+
 </template>
   
