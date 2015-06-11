@@ -116,6 +116,21 @@
     {{/each}}
 </template>
 
+<template name="table_view">
+    <div class="row valign-wrapper">
+        <div class="col s8">{{>aggregate_denomination_view}}</div>
+        <div class="col s4 valign center-align">{{>enter_check}}</div>
+    </div>
+</template>
+
+<template name="enter_check">
+    Put your thing in here
+    <form>
+        <input id="check" type="text" class="validate" value="0.00">
+        <label for="check">Check subtotal</label>
+    </form>
+</template>
+
 <template name="enter_denominations">
     <!-- each a single_denomination_view and denomination_button, add
     some click events on THIS template that catch the ones from below-->
