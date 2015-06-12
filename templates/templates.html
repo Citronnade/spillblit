@@ -1,4 +1,4 @@
-<template name="createForm">
+<template name="create">
   <h2 class="center-align">Create a New Table</h2>
   <div class="row">
     <form class="col s12">
@@ -81,10 +81,12 @@
 </template>
 
 <template name="result">
-
+  
 
 </template>
 <template name="resulted">
+  <h2 class="center-align">Results</h2>
+  <h3 class="center-align msg">*Negative numbers denote how many bills you should take from the table.</h3>
   <table class="hoverable2 centered bordered" id="data-table">
     <thead>
       <tr class="data-table-header">
@@ -95,7 +97,6 @@
     <tbody>
         
       {{#each resultsData.[0].net_bills}} 
-      <!-- ^^^we need to change this to check the name later -->
       <tr>
 	<td>{{[0]}}</td>
 	<td>{{[1]}}</td>

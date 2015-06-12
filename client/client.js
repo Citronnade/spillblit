@@ -1,23 +1,21 @@
-
-
-/*
 Template.create.events({
-	"click #create": function() {
-		Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
-			if (error) {
+    "click #create": function() {
+	Meteor.call("create", {name: $("#name").val(), table: $("#table").val()}, function(error, result) {
+	    if (error) {
                 //console.log("Error: " + error);
             }
-			else {
-				Session.set("_id", result);
-				Session.set("name", $("#name").val());
-				Router.go("/table/" + Session.get("_id"));
-			}
-		});
-	}
+	    else {
+		Session.set("_id", result);
+		Session.set("name", $("#name").val());
+		Router.go("/table/" + Session.get("_id"));
+	    }
+	});
+    }
 });
 
 Template.join.events({"click #join": function() {Router.go("/table/" + $("#id").val());}});
-*/
+
+
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
 
