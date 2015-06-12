@@ -104,18 +104,15 @@ core-header-panels{
     color: green;
 }
 
-@media
-only screen and (-webkit-min-device-pixel-ratio : 1.5),
-only screen and (min-device-pixel-ratio : 1.5) {
-    .cover  {
-	position:absolute;
-	top: 50%;
-	left: 50%;
-	margin-right: -50%;
-	transform:translate(-50%, -50%);
-    }
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
+main {
+    flex: 1 0 auto;
+}
 
 
 #data-table{
