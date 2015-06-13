@@ -239,7 +239,7 @@ var payBills = function(tData){ //assigns bills to everybody
     };
     var tax_percent = 0.08; //this hsould be a param or something
     var tip_percent = 0.15;
-    var total_bills = getBills(tableData);
+    var total_bills = getBills(tData);
     //console.log("tData", tData);
     //console.log("total_bills", total_bills);
     var all_checks = _.pluck(tData, 'bill');
@@ -279,7 +279,7 @@ var payBills = function(tData){ //assigns bills to everybody
 //
     var orig_all_checks_taxed = all_checks_taxed.slice();
     var orig_all_checks_taxed_tipped = all_checks_taxed_tipped.slice();
-
+    console.log("total_bills", total_bills);
     Object.keys(total_bills) //pay the bills
         .sort(function(a,b){return parseFloat(b)-parseFloat(a);})
         .forEach(function(denomination){
@@ -299,9 +299,9 @@ var payBills = function(tData){ //assigns bills to everybody
                         total_cash[j] = parseFloat((total_cash[j]).toFixed(2));
                         all_checks_taxed[j] = parseFloat((all_checks_taxed[j]).toFixed(2));
                         //subtractNote(all_wallets[j], denomination);
-                        //console.log("total_bills", total_bills);
-                        //console.log("current bill:", denomination);
-                        //console.log("all_wallets[%d]", j, all_wallets[j]);
+                        console.log("total_bills", total_bills);
+                        console.log("current bill:", denomination);
+                        console.log("all_wallets[%d]", j, all_wallets[j]);
                     }
                     else{ //remainder too small for current bill
                         empty++;
@@ -338,10 +338,10 @@ var payBills = function(tData){ //assigns bills to everybody
         return memo;
     },0);
 
-    //console.log("orig_all_checks_taxed", orig_all_checks_taxed);
-    //console.log("amt_owed", amt_owed);
-    //console.log("tip_owed", tip_owed);
-    //console.log("total_bills", total_bills);
+    console.log("orig_all_checks_taxed", orig_all_checks_taxed);
+    console.log("amt_owed", amt_owed);
+    console.log("tip_owed", tip_owed);
+    console.log("total_bills", total_bills);
 //total_bills right now is the final pool of bills on the table
 
     var amt_returned = [];
@@ -395,8 +395,8 @@ var payBills = function(tData){ //assigns bills to everybody
     var change = get_change(leftover, total_bills);
     total_bills = add_wallets(total_bills, change);
 
-    //console.log("total_bills final", total_bills);
-    //console.log("amt_owed", amt_owed);
+    console.log("total_bills final", total_bills);
+    console.log("amt_owed", amt_owed);
 
     var bills_returned = _.pluck(tData, "cash"); //here we get everyone's bills
     bills_returned = JSON.parse(JSON.stringify(bills_returned)); //WHAT THE HELL JAVASCRIPT
@@ -407,7 +407,7 @@ var payBills = function(tData){ //assigns bills to everybody
         });
 
     });
-    //console.log("bills returned:", bills_returned);
+    console.log("bills returned:", bills_returned);
 
 
     /*var bill_list = _.reduce(denominations, function(memo, key){ //PUT THIS SOMEHWERE ELSE OH MY GOD WE NEED THIS SO BADLY
@@ -427,7 +427,7 @@ var payBills = function(tData){ //assigns bills to everybody
     //console.log("new amt_owed:", amt_owed);
     */
 
-    //console.log("total_bills before returning change:", total_bills);
+    console.log("total_bills before returning change:", total_bills);
     Object.keys(total_bills)//return change to everybody.  HOPEFULLY THIS WORKS
         .sort(function(a,b){return parseFloat(b)-parseFloat(a);})
         .forEach(function(denomination){
@@ -447,10 +447,10 @@ var payBills = function(tData){ //assigns bills to everybody
                         bills_returned[j][denomination]++;
                         total_cash[j] = parseFloat((total_cash[j]).toFixed(2));
                         amt_owed[j] = parseFloat((amt_owed[j]).toFixed(2));
-                        //console.log("total_bills", total_bills);
-                        //console.log("current bill:", denomination);
-                        //console.log("amt_owed[%d] 2 ", j, amt_owed[j]);
-                        //console.log("bills_returned", bills_returned)
+                        console.log("total_bills", total_bills);
+                        console.log("current bill:", denomination);
+                        console.log("amt_owed[%d] 2 ", j, amt_owed[j]);
+                        console.log("bills_returned", bills_returned)
                     }
                     else{ //remainder too small for current bill
                         empty++;
@@ -536,9 +536,10 @@ var payBills = function(tData){ //assigns bills to everybody
             }
         })
     });
-    //console.log("amt_owed", amt_owed);
-    //console.log("total_bills left on table:", total_bills);
-
+    console.log("amt_owed", amt_owed);
+    console.log("total_bills left on table:", total_bills);
+    console.log("bills_returned", bills_returned);
+    console.log("orig_all_wallets", orig_all_wallets);
     var net_wallets = [];
     for (var j=0; j < amt_owed.length; j++){
         net_wallets.push(diff_wallets(bills_returned[j], orig_all_wallets[j]));
@@ -551,6 +552,7 @@ var payBills = function(tData){ //assigns bills to everybody
         var person = {};
         person['name'] = tData[j]["name"];
         person['net_bills'] = net_wallets[j];
+        //person['net_bills'] = bills_returned[j];
         person['tip_owed'] = tip_owed[j];
         final_data.push(person);
     }
