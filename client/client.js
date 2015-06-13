@@ -572,66 +572,117 @@ var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //th
 console.log(bills_returned_array);
 
 */
-
+/*
 var return_results = function(id, name){
-    var getTable = function(){return Tables.find({"_id": id});};
-    var result = getTable().fetch();
-    var tableData = [];
-    console.log("table", getTable());
-    console.log("result", result);
-    console.log("id", id);
-    console.log("getTable result:", result);
-    if (getTable()) {
-        tableData =  result.tableData;
-    }
+    Meteor.subscribe("Tables", id);
+    console.log("this", this);
+    if(this.subscriptionsReady()) {
+        var table = Tables.find({"_id": id});
+        var result = table.fetch();
+        var tableData = [];
+        console.log("table", table);
+        console.log("result", result);
+        console.log("id", id);
+        console.log("getTable result:", result);
+        if (table) {
+            tableData = result.tableData;
+        }
 
-    _.each(tableData, function(person) {
-        var b = {};
+        _.each(tableData, function (person) {
+            var b = {};
 
-        _.each(person.cash, function (value, key) {
-            console.log("key", key);
-            key = key.replace(",", ".");
-            b[key] = value;
+            _.each(person.cash, function (value, key) {
+                console.log("key", key);
+                key = key.replace(",", ".");
+                b[key] = value;
+            });
+            person.cash = b;
         });
-        person.cash = b;
-    });
 
 
-
-    console.log("WOOHOO");
-    console.log("tableData", tableData);
+        console.log("WOOHOO");
+        console.log("tableData", tableData);
         var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right
-    console.log(bills_returned);
-    
-    var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //this better be reactive...
-	wallet["net_bills"] = objectToArray(wallet["net_bills"]);
-	memo.push(wallet);
-	return memo;
-    },[]);
-    
-    console.log("BAAAAAAAAAAAAAAAAAAAAAHHHHHH");
-    console.log(bills_returned_array);
-    
-    return bills_returned_array;
-};
+        console.log(bills_returned);
 
-//var getTable = function(id, name) {
-//    var table = Tables.find({"_id": id});
-//    var result = table.fetch();
-//    console.log("table", table);
-//    console.log("result", result);
-//    console.log("id", id);
-//    console.log("getTable result:", result);
-//    if (result) {
-//        return result.tableData;
-//    }
-//
-//};
+        var bills_returned_array = _.reduce(bills_returned, function (memo, wallet) { //this better be reactive...
+            wallet["net_bills"] = objectToArray(wallet["net_bills"]);
+            memo.push(wallet);
+            return memo;
+        }, []);
+
+        console.log("BAAAAAAAAAAAAAAAAAAAAAHHHHHH");
+        console.log(bills_returned_array);
+
+        return bills_returned_array;
+    }
+};
+*/
 
 Template.resulted.helpers(
     {
-	"resultsData": return_results(Session.get("_id"), Session.get("name"))
-    }
+        "resultsData": function(){
+            var id = Session.get("_id");
+            var name = Session.get("name");
+            var handle = Meteor.subscribe("Tables", id);
+            var returned = new ReactiveVar([]);
+            console.log("handle", handle.ready());
+            if (handle.ready()){
+
+                //Tracker.autorun(function(){
+                var table = Tables.find({"_id": id});
+                var result = table.fetch()[0];
+                console.log("table", table);
+                console.log("result", result);
+                console.log("id", id);
+                console.log("getTable result:", result);
+                var tableData = result.tableData;
+                _.each(tableData, function (person) {
+                    var b = {};
+
+                    _.each(person.cash, function (value, key) {
+                        key = key.replace(",", ".");
+                        b[key] = value;
+                    });
+                    person.cash = b;
+                });
+
+
+                console.log("WOOHOO");
+                console.log("tableData", tableData);
+                var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right
+                console.log(bills_returned);
+
+                var bills_returned_array = _.reduce(bills_returned, function (memo, wallet) { //this better be reactive...
+                    wallet["net_bills"] = objectToArray(wallet["net_bills"]);
+                    memo.push(wallet);
+                    return memo;
+                }, []);
+
+                console.log("BAAAAAAAAAAAAAAAAAAAAAHHHHHH");
+                console.log(bills_returned_array);
+
+                var person_index = 0;
+                _.find(bills_returned_array, function(person, index){
+                    if(person.name == name) {
+                        person_index = index;
+                        console.log("index", index);
+                        return true;
+                    }
+                });
+
+                returned.set(bills_returned_array[person_index]);
+
+                //});
+            }
+            console.log("returning a new value");
+
+            return returned.get();
+
+        }
+
+    }//return_results(Session.get("_id"), Session.get("name"))
+
 );
 
 Meteor.autosubscribe(function(){
