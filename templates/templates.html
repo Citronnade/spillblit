@@ -33,13 +33,13 @@
     <div class="row">
       <div class="col s6 center-align">
         <i class = "large mdi-maps-local-restaurant"></i><br>
-        <a class="waves-effect waves-light btn-large" href="./m-create.html">
+        <a class="waves-effect waves-light btn-large" href="/create">
           Create a table
         </a>
       </div>
       <div class="col s6 center-align">
         <i class = "large mdi-social-person-add"></i><br>
-        <a class="waves-effect waves-light btn-large" href="./m-join.html">
+        <a class="waves-effect waves-light btn-large" href="/join">
           Join a table
         </a>
       </div>
@@ -121,6 +121,7 @@
         <div class="col s8">{{>aggregate_denomination_view}}</div>
         <div class="col s4 valign center-align">{{>enter_check}}</div>
     </div>
+    {{>resulted}}
 </template>
 
 <template name="enter_check">
@@ -137,27 +138,30 @@
 
 </template>
 
+<template name="result">
+  
 
-<template name="denomination_button">
-    <!-- Button for the denominations? -->
+
 </template>
 
-
-
-
 <template name="resulted">
-  <table>
-    <tr class="data-table-header">
-      <th data-field="type">Denomination</th>
-      <th data-field="put">Put in Pile</th>
-      <th data-field="take">Take from Pile</th>
-    </tr>
-    {{#each resultsData}}
-    <tr>
-      <td>{{this.denomination}}</td>
-      <td>{{this.put}}</td>
-      <td>{{this.take}}</td>
-    </tr>
-    {{/each}}
+  <h2 class="center-align">Results</h2>
+  <h3 class="center-align msg">*Negative numbers denote how many bills you should take from the table.</h3>
+  <table class="hoverable2 centered bordered" id="data-table">
+    <thead>
+      <tr class="data-table-header">
+	<th data-field="type">Denomination</th>
+	<th data-field="put">Put/Take in/from Pile</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+      {{#each resultsData.[0].net_bills}} 
+      <tr>
+	<td>{{[0]}}</td>
+	<td>{{[1]}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
   </table>
 </template>

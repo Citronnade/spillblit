@@ -6,10 +6,10 @@
 
 meteor-platform
 iron:router
-autopublish
 insecure
 meteorhacks:kadira
 materialize:materialize
 sacha:spin
 jquery
 u2622:persistent-session
+spacebars

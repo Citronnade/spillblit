@@ -9,8 +9,9 @@ Meteor.startup(function() {
     Session.setDefault("denominations", denominations_dict);
     console.log("ota", objectToArray(Session.get("denominations")));
     console.log("dump", Tables.find().fetch());
-});
 
+});
+var currentTable = [];
 Template.create.events({
 	"click #create": function() {
         var name = $("#name").val();
@@ -88,7 +89,7 @@ Template.enter_check.events({
     "change input": function(e){
         console.log("check amt changed");
         console.log("new amt:", e.target.value);
-        Meteor.call("updateCheck", Session.get("name", Session.get("_id"), e.target.value));
+        Meteor.call("updateCheck", Session.get("name"), Session.get("_id"), e.target.value);
         e.preventDefault();
     }
 });
@@ -110,6 +111,7 @@ Template.join.events({
         Router.go("/table/" + id);
     }
 });
+
 
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
@@ -557,7 +559,7 @@ var payBills = function(tData){ //assigns bills to everybody
     return final_data;
 };
 
-
+/*
 var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right?
 console.log(bills_returned);
 
@@ -567,5 +569,77 @@ var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //th
     memo.push(wallet);
     return memo;
     },[]);
-
 console.log(bills_returned_array);
+
+*/
+
+var return_results = function(id, name){
+    var getTable = function(){return Tables.find({"_id": id});};
+    var result = getTable().fetch();
+    var tableData = [];
+    console.log("table", getTable());
+    console.log("result", result);
+    console.log("id", id);
+    console.log("getTable result:", result);
+    if (getTable()) {
+        tableData =  result.tableData;
+    }
+
+    _.each(tableData, function(person) {
+        var b = {};
+
+        _.each(person.cash, function (value, key) {
+            console.log("key", key);
+            key = key.replace(",", ".");
+            b[key] = value;
+        });
+        person.cash = b;
+    });
+
+
+
+    console.log("WOOHOO");
+    console.log("tableData", tableData);
+        var bills_returned = payBills(tableData); //should make this a reactive var, easy enough right
+    console.log(bills_returned);
+    
+    var bills_returned_array = _.reduce(bills_returned, function(memo, wallet){ //this better be reactive...
+	wallet["net_bills"] = objectToArray(wallet["net_bills"]);
+	memo.push(wallet);
+	return memo;
+    },[]);
+    
+    console.log("BAAAAAAAAAAAAAAAAAAAAAHHHHHH");
+    console.log(bills_returned_array);
+    
+    return bills_returned_array;
+};
+
+//var getTable = function(id, name) {
+//    var table = Tables.find({"_id": id});
+//    var result = table.fetch();
+//    console.log("table", table);
+//    console.log("result", result);
+//    console.log("id", id);
+//    console.log("getTable result:", result);
+//    if (result) {
+//        return result.tableData;
+//    }
+//
+//};
+
+Template.resulted.helpers(
+    {
+	"resultsData": return_results(Session.get("_id"), Session.get("name"))
+    }
+);
+
+Meteor.autosubscribe(function(){
+    var table = Tables.findOne({"_id": Session.get("_id")});
+    if (table){
+        console.log(table);
+        currentTable = table;
+    }
+});
+
+
