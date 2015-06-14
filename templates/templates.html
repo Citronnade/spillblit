@@ -103,20 +103,21 @@
                 <a class="btn-large" id="down{{this.[0]}}">-1</a>
             </div>
         </div-->
-	<div class="row">
+	
 		<div class="input-field col s8">
-		  <input id="{{this.[0]}}" type="number" class="validate">
+		  <input id="{{this.[0]}}" type="number" class="validate" style="height:30px">
 		  <label for="{{this.[0]}}">{{this.[0]}}</label>
 		</div>
 		<div class="col s4 left-align">
-		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2" id="up{{this.[0]}}"><i class="mdi-content-add"></i></a>
-		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2" id="down{{this.[0]}}"><i class="mdi-content-remove"></i></a>
+		  <a class="btn-floating btn waves-effect waves-light green lighten-2" id="up{{this.[0]}}"><i class="mdi-content-add"></i></a>
+		  <a class="btn-floating btn waves-effect waves-light green lighten-2" id="down{{this.[0]}}"><i class="mdi-content-remove"></i></a>
 		</div>
-	</div>
+	
     {{/each}}
 </template>
 
 <template name="table_view">
+  <br><br>
     <div class="row valign-wrapper">
         <div class="col s8">{{>aggregate_denomination_view}}</div>
         <div class="col s4 valign center-align">{{>enter_check}}</div>
