@@ -104,11 +104,11 @@
             </div>
         </div-->
 	<div class="row">
-		<div class="input-field col s8" style="height:30px">
+		<div class="input-field col s8" style="height:25px">
 		  <input id="{{this.[0]}}" type="number" class="validate">
 		  <label for="{{this.[0]}}">{{this.[0]}}</label>
 		</div>
-		<div class="col s4 left-align">
+		<div class="col s4 left-align"><br>
 		  <a class="btn-floating btn waves-effect waves-light green lighten-2" id="up{{this.[0]}}"><i class="mdi-content-add"></i></a>
 		  <a class="btn-floating btn waves-effect waves-light green lighten-2" id="down{{this.[0]}}"><i class="mdi-content-remove"></i></a>
 		</div>
@@ -117,22 +117,19 @@
 </template>
 
 <template name="table_view">
-    <div class="row valign-wrapper">
-        <div class="col s8">{{>aggregate_denomination_view}}</div>
-        <div class="col s4 valign center-align">{{>enter_check}}
-	  <a class="waves-effect waves-light btn-large" href="/resulted">
-          View Results
-          </a>
+    <div class="row">
+        <div class="col s6">{{>aggregate_denomination_view}}</div>
+        <div class="col s6 center-align">{{>enter_check}}
+	  {{>resulted}}
 	</div>
     </div>
-    <!--{{>resulted}}-->
 </template>
 
 <template name="enter_check">
-    <div class="input-field">
+    <span class="input-field">
         <input id="check" type="text" class="validate" value="0.00">
         <label for="check">Check subtotal</label>
-    </div>
+    </span>
 </template>
 
 <template name="enter_denominations">
@@ -148,8 +145,8 @@
 </template>
 
 <template name="resulted">
-  <h2 class="center-align">Results</h2>
-  <h3 class="center-align msg">*Negative numbers denote how many bills you should take from the table.</h3>
+  <h5 class="center-align">Results</h5>
+  <p class="center-align msg">*Negative numbers denote how many bills you should take from the table.</p>
   <table class="hoverable2 centered bordered" id="data-table">
     <thead>
       <tr class="data-table-header">
