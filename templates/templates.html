@@ -23,12 +23,12 @@
 <template name="home">
   <div class="section center-align" style="height:40%">
     <br>
-    <h1>HELLO PLEASSE WORK</h1>
-    <h3>yada yada yada</h3>
+    <h1>Bill Splitting</h1>
+    <h3>with the money in your wallet</h3>
   </div>
-  <div class="green lighten-3" style="height:50%;">
+  <div class="green lighten-3" style="height:100%;">
     <div class="center-align">
-      <br><h5>talk about what we dooooo hereer alksdjfklajdsl kajf lkdjalkfj dkljfalkdj  lorem ipsum text yay</h5>
+      <br><h5>No more arguing over who owes who what!<br>Just create a table, have your friends join, and enter the cash in your wallet.</h5>
     </div>
     <div class="row">
       <div class="col s6 center-align">
@@ -104,13 +104,13 @@
             </div>
         </div-->
 	<div class="row">
-		<div class="input-field col s8">
+		<div class="input-field col s8" style="height:30px">
 		  <input id="{{this.[0]}}" type="number" class="validate">
 		  <label for="{{this.[0]}}">{{this.[0]}}</label>
 		</div>
 		<div class="col s4 left-align">
-		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2" id="up{{this.[0]}}"><i class="mdi-content-add"></i></a>
-		  <a class="btn-floating btn-large waves-effect waves-light green lighten-2" id="down{{this.[0]}}"><i class="mdi-content-remove"></i></a>
+		  <a class="btn-floating btn waves-effect waves-light green lighten-2" id="up{{this.[0]}}"><i class="mdi-content-add"></i></a>
+		  <a class="btn-floating btn waves-effect waves-light green lighten-2" id="down{{this.[0]}}"><i class="mdi-content-remove"></i></a>
 		</div>
 	</div>
     {{/each}}
@@ -119,13 +119,16 @@
 <template name="table_view">
     <div class="row valign-wrapper">
         <div class="col s8">{{>aggregate_denomination_view}}</div>
-        <div class="col s4 valign center-align">{{>enter_check}}</div>
+        <div class="col s4 valign center-align">{{>enter_check}}
+	  <a class="waves-effect waves-light btn-large" href="/resulted">
+          View Results
+          </a>
+	</div>
     </div>
-    {{>resulted}}
+    <!--{{>resulted}}-->
 </template>
 
 <template name="enter_check">
-    Put your thing in here
     <div class="input-field">
         <input id="check" type="text" class="validate" value="0.00">
         <label for="check">Check subtotal</label>
