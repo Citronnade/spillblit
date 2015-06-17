@@ -113,6 +113,8 @@ Template.join.events({
 });
 
 
+
+
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
 Template.registerHelper("session", function(name) {return Session.get(name);});
 
@@ -554,6 +556,8 @@ var payBills = function(tData){ //assigns bills to everybody
         person['net_bills'] = net_wallets[j];
         //person['net_bills'] = bills_returned[j];
         person['tip_owed'] = tip_owed[j];
+        person['amt_owed'] = amt_owed[j];
+        person['orig_bill'] = orig_all_checks_taxed[j];
         final_data.push(person);
     }
 
@@ -656,8 +660,10 @@ Template.resulted.helpers(
                 console.log(bills_returned);
 
                 var bills_returned_array = _.reduce(bills_returned, function (memo, wallet) { //this better be reactive...
+                    console.log("wallet", wallet);
                     wallet["net_bills"] = objectToArray(wallet["net_bills"]);
                     memo.push(wallet);
+                    console.log(memo);
                     return memo;
                 }, []);
 
@@ -681,9 +687,24 @@ Template.resulted.helpers(
 
             return returned.get();
 
+        },
+        "color_bill": function(num){
+            console.log("num", num);
+            num = num[1];
+            if (num > 0){
+                return "teal";
+            }
+            else if (num < 0){
+                return "red";
+            }
+            else{
+                return "black";
+            }
         }
 
+
     }//return_results(Session.get("_id"), Session.get("name"))
+
 
 );
 

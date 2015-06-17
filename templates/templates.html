@@ -145,23 +145,27 @@
 </template>
 
 <template name="resulted">
-  <h5 class="center-align">Results</h5>
-  <p class="center-align msg">*Negative numbers denote how many bills you should take from the table.</p>
-  <table class="hoverable2 centered bordered" id="data-table">
-    <thead>
-      <tr class="data-table-header">
-	<th data-field="type">Denomination</th>
-	<th data-field="put">Put/Take in/from Pile</th>
-      </tr>
-    </thead>
-    <tbody>
+    {{#with resultsData}}
+        <h5 class="center-align">Results</h5>
+        <p class="center-align msg">*Negative numbers denote how many bills you should take from the table.</p>
+        <table class="hoverable2 centered bordered" id="data-table">
+            <thead>
+            <tr class="data-table-header">
+                <th data-field="type">Denomination</th>
+                <th data-field="put">Put/Take in/from Pile</th>
+            </tr>
+            </thead>
+            <tbody>
 
-    {{#each resultsData.net_bills}}
-      <tr>
-	<td>{{[0]}}</td>
-	<td>{{[1]}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+            {{#each this.net_bills}}
+                <tr>
+                    <td>{{[0]}}</td>
+                    <td><span class="{{color_bill this }}-text">{{[1]}}</span></td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        <p>Amount owed: {{this.amt_owed}}</p>
+        <p>Tip owed: {{this.tip_owed}}</p>
+    {{/with}}
 </template>
