@@ -10,6 +10,9 @@ bill splitting with $$
 #Link to quick demo video
 * https://www.youtube.com/watch?v=NYwpX4ufTnQ&feature=youtu.be
 
+#Code Deployed @:
+* http://citronnade.mooo.com/
+
 ## Contributors/Roles
 * Sean Yip - Server
 * Max Zhou - Math Calculations 
