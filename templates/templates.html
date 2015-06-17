@@ -4,12 +4,12 @@
     <form class="col s12">
       <div class="input-field col s12">
         <i class="mdi-action-account-circle prefix"></i>
-        <input id="name" type="text" class="validate">
+        <input id="name" type="text" class="validate" required>
         <label for="name">Your Name</label>
       </div>
       <div class="input-field col s12">
         <i class="mdi-maps-local-restaurant prefix"></i>
-        <input id="table" type="text" class="validate">
+        <input id="table" type="text" class="validate" required>
         <label for="table">Table Name</label>
       </div>
       <div class="col s12 center-align">
@@ -138,12 +138,6 @@
 
 </template>
 
-<template name="result">
-  
-
-
-</template>
-
 <template name="resulted">
     {{#with resultsData}}
         <h5 class="center-align">Results</h5>
@@ -158,10 +152,10 @@
             <tbody>
 
             {{#each this.net_bills}}
-                <tr>
-                    <td>{{[0]}}</td>
-                    <td><span class="{{color_bill this }}-text">{{[1]}}</span></td>
-                </tr>
+            <tr>
+              <td>{{[0]}}</td>
+              <td><span class="{{color_bill this }}-text">{{[1]}}</span></td>
+            </tr>
             {{/each}}
             </tbody>
         </table>

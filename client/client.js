@@ -11,27 +11,56 @@ Meteor.startup(function() {
     console.log("dump", Tables.find().fetch());
 
 });
+var not_empty_input = function(input){
+    var i = input;
+    i = i.replace(" ","");
+    return i.length>0;
+};
 var currentTable = [];
 Template.create.events({
 	"click #create": function() {
-        var name = $("#name").val();
+	    if (not_empty_input($("#name").val()) && not_empty_input($("#table").val())){
+		var name = $("#name").val();
 		Meteor.call("create", {
-            "tableName": $("#table").val(),
-            "tableData": [
-                init_person(name)
-            ]},
-            function(error, result) {
-                if (error) {
-                    //console.log("Error: " + error);
-                }
-                else {
-                    Session.setPersistent("_id", result);
-                    Session.setPersistent("name", name);
-                    Router.go("/table/" + Session.get("_id"));
-
-                }
-            });
-    }
+		    "tableName": $("#table").val(),
+		    "tableData": [
+			init_person(name)
+		    ]},
+			    function(error, result) {
+				if (error) {
+				    //console.log("Error: " + error);
+				}
+				else {
+				    Session.setPersistent("_id", result);
+				    Session.setPersistent("name", name);
+				    Router.go("/table/" + Session.get("_id"));
+				    
+				}
+			    });
+	    }
+	},
+    //added this below event because spamming create button would allow empty inputs to pass through
+	"dblclick #create": function() {
+	    if (not_empty_input($("#name").val()) && not_empty_input($("#table").val())){
+		var name = $("#name").val();
+		Meteor.call("create", {
+		    "tableName": $("#table").val(),
+		    "tableData": [
+			init_person(name)
+		    ]},
+			    function(error, result) {
+				if (error) {
+				    //console.log("Error: " + error);
+				}
+				else {
+				    Session.setPersistent("_id", result);
+				    Session.setPersistent("name", name);
+				    Router.go("/table/" + Session.get("_id"));
+				    
+				}
+			    });
+	    }
+	}
 });
 
 
@@ -102,17 +131,27 @@ Template.enter_denominations.events({
 
 
 Template.join.events({
-    "click #join": function() {
-        var id = $("#id").val();
-        var name = $("#name").val();
-        Session.setPersistent("name", name);
-        Session.setPersistent("_id", id);
-        Meteor.call("join", name, id);
-        Router.go("/table/" + id);
+     "click #join": function() {
+	if (not_empty_input($("#name").val()) && not_empty_input($("#id").val())){
+            var id = $("#id").val();
+            var name = $("#name").val();
+            Session.setPersistent("name", name);
+            Session.setPersistent("_id", id);
+            Meteor.call("join", name, id);
+            Router.go("/table/" + id);
+	}
+     },
+    "dblclick #join": function() {
+	if (not_empty_input($("#name").val()) && not_empty_input($("#id").val())){
+            var id = $("#id").val();
+            var name = $("#name").val();
+            Session.setPersistent("name", name);
+            Session.setPersistent("_id", id);
+            Meteor.call("join", name, id);
+            Router.go("/table/" + id);
+	}
     }
 });
-
-
 
 
 Template.registerHelper("hasSession", function(name) {return (Session.get(name)) ? true : false;});
